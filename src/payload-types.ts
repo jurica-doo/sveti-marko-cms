@@ -70,6 +70,9 @@ export interface Config {
     users: User;
     'media-images': MediaImage;
     'media-videos': MediaVideo;
+    news: News;
+    'news-categories': NewsCategory;
+    'useful-links': UsefulLink;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +83,9 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     'media-images': MediaImagesSelect<false> | MediaImagesSelect<true>;
     'media-videos': MediaVideosSelect<false> | MediaVideosSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
+    'news-categories': NewsCategoriesSelect<false> | NewsCategoriesSelect<true>;
+    'useful-links': UsefulLinksSelect<false> | UsefulLinksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -89,8 +95,22 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    settings: Setting;
+    schedule: Schedule;
+    'home-page': HomePage;
+    'news-page': NewsPage;
+    'about-page': AboutPage;
+    'contact-page': ContactPage;
+  };
+  globalsSelect: {
+    settings: SettingsSelect<false> | SettingsSelect<true>;
+    schedule: ScheduleSelect<false> | ScheduleSelect<true>;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'news-page': NewsPageSelect<false> | NewsPageSelect<true>;
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -191,6 +211,94 @@ export interface MediaVideo {
   focalY?: number | null;
 }
 /**
+ * Župne vijesti i obavijesti. Sortiraju se po datumu objave.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Ostavi prazno da se generira iz naslova.
+   */
+  slug?: string | null;
+  publishedAt: string;
+  category?: (number | null) | NewsCategory;
+  /**
+   * Istaknute vijesti idu na vrh naslovnice.
+   */
+  featured?: boolean | null;
+  coverImage?: (number | null) | MediaImage;
+  /**
+   * Kratki uvod prikazan na kartici vijesti i u SEO opisu.
+   */
+  excerpt: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  gallery?:
+    | {
+        image: number | MediaImage;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * npr. Župni ured
+   */
+  author?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-categories".
+ */
+export interface NewsCategory {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Ostavi prazno da se generira iz naslova.
+   */
+  slug?: string | null;
+  /**
+   * Kratki opis kategorije, prikazuje se na popisu vijesti.
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Vanjske stranice koje se prikazuju na naslovnici i u podnožju.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "useful-links".
+ */
+export interface UsefulLink {
+  id: number;
+  title: string;
+  url: string;
+  description?: string | null;
+  group?: ('crkva' | 'duhovnost' | 'zajednica') | null;
+  featuredOnHome?: boolean | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -225,6 +333,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media-videos';
         value: number | MediaVideo;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: number | News;
+      } | null)
+    | ({
+        relationTo: 'news-categories';
+        value: number | NewsCategory;
+      } | null)
+    | ({
+        relationTo: 'useful-links';
+        value: number | UsefulLink;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -336,6 +456,55 @@ export interface MediaVideosSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  publishedAt?: T;
+  category?: T;
+  featured?: T;
+  coverImage?: T;
+  excerpt?: T;
+  content?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  author?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-categories_select".
+ */
+export interface NewsCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "useful-links_select".
+ */
+export interface UsefulLinksSelect<T extends boolean = true> {
+  title?: T;
+  url?: T;
+  description?: T;
+  group?: T;
+  featuredOnHome?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -373,6 +542,598 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Naziv župe, izbornik, podnožje i društvene mreže.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  siteName: string;
+  shortName?: string | null;
+  tagline?: string | null;
+  logo?: (number | null) | MediaImage;
+  diocese?: string | null;
+  announcement?: {
+    enabled?: boolean | null;
+    text?: string | null;
+    href?: string | null;
+  };
+  navigation?:
+    | {
+        label: string;
+        /**
+         * npr. /vijesti/ — interne putanje uvijek s kosom crtom na kraju.
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  headerCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  footerIntro?: string | null;
+  footerColumns?:
+    | {
+        title: string;
+        links?:
+          | {
+              label: string;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  copyright?: string | null;
+  social?:
+    | {
+        platform: 'facebook' | 'instagram' | 'youtube' | 'whatsapp';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Mijenja se na jednom mjestu — prikazuje se na naslovnici i na kontaktu.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedule".
+ */
+export interface Schedule {
+  id: number;
+  masses?:
+    | {
+        /**
+         * npr. Nedjelja, Radnim danom, Subota
+         */
+        day: string;
+        /**
+         * npr. 9:00, 11:00 i 20:00
+         */
+        times: string;
+        note?: string | null;
+        highlight?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  massesNote?: string | null;
+  confessions?:
+    | {
+        day: string;
+        times: string;
+        note?: string | null;
+        highlight?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  confessionsNote?: string | null;
+  devotions?:
+    | {
+        title: string;
+        day?: string | null;
+        times?: string | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  officeHours?:
+    | {
+        day: string;
+        /**
+         * npr. 09:00 - 11:00 ili Zatvoreno
+         */
+        hours: string;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  officeNotes?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Hero, sekcije i tekstovi na naslovnici.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: number;
+  hero: {
+    image?: (number | null) | MediaImage;
+    eyebrow?: string | null;
+    title: string;
+    subtitle?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    showSchedule?: boolean | null;
+    massesTitle?: string | null;
+    confessionsTitle?: string | null;
+  };
+  officeSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    intro?: string | null;
+    /**
+     * Krštenja, vjenčanja, sprovodi, bolesnici…
+     */
+    cards?:
+      | {
+          title: string;
+          text: string;
+          href?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  newsSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    intro?: string | null;
+    count?: number | null;
+    ctaLabel?: string | null;
+  };
+  quote?: {
+    enabled?: boolean | null;
+    text?: string | null;
+    /**
+     * npr. Mk 16, 15
+     */
+    source?: string | null;
+    image?: (number | null) | MediaImage;
+  };
+  linksSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    intro?: string | null;
+  };
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Tekstovi na popisu župnih vijesti.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-page".
+ */
+export interface NewsPage {
+  id: number;
+  eyebrow?: string | null;
+  title: string;
+  intro?: string | null;
+  heroImage?: (number | null) | MediaImage;
+  perPage?: number | null;
+  emptyMessage?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Povijest župe, crkva i sv. Marko Evanđelist.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
+ */
+export interface AboutPage {
+  id: number;
+  eyebrow?: string | null;
+  title: string;
+  intro?: string | null;
+  heroImage?: (number | null) | MediaImage;
+  parish?: {
+    title?: string | null;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | MediaImage;
+  };
+  church?: {
+    title?: string | null;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | MediaImage;
+  };
+  patron?: {
+    title?: string | null;
+    /**
+     * npr. 25. travnja
+     */
+    feastDay?: string | null;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | MediaImage;
+  };
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Adresa, telefon, e-mail, karta i dolazak.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  eyebrow?: string | null;
+  title: string;
+  intro?: string | null;
+  heroImage?: (number | null) | MediaImage;
+  contact: {
+    parishOfficeName?: string | null;
+    street: string;
+    postalCode: string;
+    city: string;
+    country?: string | null;
+    phone?: string | null;
+    mobile?: string | null;
+    email?: string | null;
+    iban?: string | null;
+    oib?: string | null;
+  };
+  map?: {
+    /**
+     * Google Maps → Dijeli → Ugradi kartu → src iz <iframe>.
+     */
+    embedUrl?: string | null;
+    directionsUrl?: string | null;
+  };
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  shortName?: T;
+  tagline?: T;
+  logo?: T;
+  diocese?: T;
+  announcement?:
+    | T
+    | {
+        enabled?: T;
+        text?: T;
+        href?: T;
+      };
+  navigation?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  headerCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  footerIntro?: T;
+  footerColumns?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  copyright?: T;
+  social?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedule_select".
+ */
+export interface ScheduleSelect<T extends boolean = true> {
+  masses?:
+    | T
+    | {
+        day?: T;
+        times?: T;
+        note?: T;
+        highlight?: T;
+        id?: T;
+      };
+  massesNote?: T;
+  confessions?:
+    | T
+    | {
+        day?: T;
+        times?: T;
+        note?: T;
+        highlight?: T;
+        id?: T;
+      };
+  confessionsNote?: T;
+  devotions?:
+    | T
+    | {
+        title?: T;
+        day?: T;
+        times?: T;
+        note?: T;
+        id?: T;
+      };
+  officeHours?:
+    | T
+    | {
+        day?: T;
+        hours?: T;
+        note?: T;
+        id?: T;
+      };
+  officeNotes?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        image?: T;
+        eyebrow?: T;
+        title?: T;
+        subtitle?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        showSchedule?: T;
+        massesTitle?: T;
+        confessionsTitle?: T;
+      };
+  officeSection?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+        cards?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+            };
+      };
+  newsSection?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+        count?: T;
+        ctaLabel?: T;
+      };
+  quote?:
+    | T
+    | {
+        enabled?: T;
+        text?: T;
+        source?: T;
+        image?: T;
+      };
+  linksSection?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-page_select".
+ */
+export interface NewsPageSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  intro?: T;
+  heroImage?: T;
+  perPage?: T;
+  emptyMessage?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  intro?: T;
+  heroImage?: T;
+  parish?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        image?: T;
+      };
+  church?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        image?: T;
+      };
+  patron?:
+    | T
+    | {
+        title?: T;
+        feastDay?: T;
+        body?: T;
+        image?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  intro?: T;
+  heroImage?: T;
+  contact?:
+    | T
+    | {
+        parishOfficeName?: T;
+        street?: T;
+        postalCode?: T;
+        city?: T;
+        country?: T;
+        phone?: T;
+        mobile?: T;
+        email?: T;
+        iban?: T;
+        oib?: T;
+      };
+  map?:
+    | T
+    | {
+        embedUrl?: T;
+        directionsUrl?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

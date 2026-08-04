@@ -9,9 +9,39 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import { Users } from './collections/Users'
 import { MediaImages } from './collections/MediaImages'
 import { MediaVideos } from './collections/MediaVideos'
+import { News } from './collections/News'
+import { NewsCategories } from './collections/NewsCategories'
+import { UsefulLinks } from './collections/UsefulLinks'
+
+import { Settings } from './globals/Settings'
+import { Schedule } from './globals/Schedule'
+import { HomePage } from './globals/HomePage'
+import { NewsPage } from './globals/NewsPage'
+import { AboutPage } from './globals/AboutPage'
+import { ContactPage } from './globals/ContactPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const parseOrigins = (value?: string): string[] =>
+  value
+    ?.split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean) ?? []
+
+/**
+ * The admin panel is served by this same app, so its own origin must be on the
+ * CSRF allowlist — otherwise Payload ignores the auth cookie on every POST/PATCH
+ * and the panel fails with "Unauthorized, you must be logged in".
+ * `CORS_ORIGIN` / `CSRF_ORIGIN` add the web frontend and any LAN hosts.
+ */
+const selfOrigins = [
+  process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  'http://localhost:3001',
+].filter((origin): origin is string => Boolean(origin))
+
+const corsOrigins = [...new Set([...parseOrigins(process.env.CORS_ORIGIN), ...selfOrigins])]
+const csrfOrigins = [...new Set([...parseOrigins(process.env.CSRF_ORIGIN), ...selfOrigins])]
 
 export default buildConfig({
   admin: {
@@ -25,15 +55,15 @@ export default buildConfig({
     Users,
     MediaImages,
     MediaVideos,
-    // Content collections go here.
+    News,
+    NewsCategories,
+    UsefulLinks,
   ],
 
-  globals: [
-    // Page / section globals go here.
-  ],
+  globals: [Settings, Schedule, HomePage, NewsPage, AboutPage, ContactPage],
 
-  cors: process.env.CORS_ORIGIN?.split(',').map((s) => s.trim()) || [],
-  csrf: process.env.CSRF_ORIGIN?.split(',').map((s) => s.trim()) || [],
+  cors: corsOrigins,
+  csrf: csrfOrigins,
 
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

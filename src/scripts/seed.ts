@@ -148,7 +148,7 @@ const seed = async () => {
         subtitle:
           'Zajednica koja se okuplja oko oltara na splitskom Neslanovcu od 1994. godine. Dobro došli — na misu, na razgovor ili samo na tišinu pred Presvetim.',
         primaryCta: { label: 'Župne vijesti', href: '/vijesti/' },
-        secondaryCta: { label: 'Kontakt i dolazak', href: '/kontakt/' },
+        secondaryCta: { label: 'Kontakt', href: '/kontakt/' },
         showSchedule: true,
         massesTitle: 'Svete mise',
         confessionsTitle: 'Ispovijed',
@@ -233,7 +233,7 @@ const seed = async () => {
     slug: 'contact-page',
     data: {
       eyebrow: 'Kontakt',
-      title: 'Župni ured i dolazak',
+      title: 'Župni ured',
       intro:
         'Crkva i župni ured nalaze se u Hercegovačkoj ulici na Neslanovcu, u sjeverozapadnom dijelu Splita.',
       contact: {
@@ -252,7 +252,7 @@ const seed = async () => {
       },
       metaTitle: 'Kontakt — Župa sv. Marka, Neslanovac, Split',
       metaDescription:
-        'Adresa, telefon, radno vrijeme župnog ureda i upute za dolazak do crkve sv. Marka na splitskom Neslanovcu.',
+        'Adresa, telefon, radno vrijeme župnog ureda i karta crkve sv. Marka na splitskom Neslanovcu.',
     },
   })
 

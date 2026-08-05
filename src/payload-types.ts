@@ -829,7 +829,7 @@ export interface AboutPage {
   createdAt?: string | null;
 }
 /**
- * Adresa, telefon, e-mail, karta i dolazak.
+ * Adresa, telefon, e-mail i karta.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-page".

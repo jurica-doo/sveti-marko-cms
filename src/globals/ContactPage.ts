@@ -7,7 +7,7 @@ export const ContactPage: GlobalConfig = {
   label: 'Kontakt',
   admin: {
     group: 'Stranice',
-    description: 'Adresa, telefon, e-mail, karta i dolazak.',
+    description: 'Adresa, telefon, e-mail i karta.',
   },
   access: {
     read: () => true,
@@ -49,7 +49,7 @@ export const ContactPage: GlobalConfig = {
           ],
         },
         {
-          label: 'Karta i dolazak',
+          label: 'Karta',
           fields: [
             {
               name: 'map',

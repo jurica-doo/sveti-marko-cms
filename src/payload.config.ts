@@ -71,13 +71,24 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
 
+  /**
+   * Serverless: every lambda instance opens its own pool, so the ceiling that
+   * matters is Supabase's, not ours. Point `DATABASE_URL` at the *transaction*
+   * pooler (port 6543) — session mode (5432) pins one server connection per
+   * client for its whole lifetime and runs out at `pool_size: 15`, which fails
+   * `payload.init()` and 500s every route including the REST API.
+   *
+   * `max: 1` because an instance serves one request at a time; anything higher
+   * is idle connections held against that shared ceiling. Timeouts are short so
+   * a saturated pooler surfaces as a fast error rather than a 30s hang.
+   */
   db: postgresAdapter({
     schemaName: 'payload',
     pool: {
       connectionString: process.env.DATABASE_URL || '',
       max: Number(process.env.DATABASE_POOL_MAX ?? 10),
-      idleTimeoutMillis: 30_000,
-      connectionTimeoutMillis: 30_000,
+      idleTimeoutMillis: 10_000,
+      connectionTimeoutMillis: 10_000,
     },
   }),
   sharp,

@@ -45,7 +45,8 @@ export const Schedule: GlobalConfig = {
                   type: 'text',
                   required: true,
                   label: 'Vrijeme',
-                  admin: { description: 'npr. 9:00, 11:00 i 20:00' },
+                  localized: true,
+                  admin: { description: 'npr. 9:00, 11:00 i 20:00 — ili rečenica poput "Prije svake mise".' },
                 },
                 { name: 'note', type: 'text', label: 'Napomena', localized: true },
                 {
@@ -74,7 +75,14 @@ export const Schedule: GlobalConfig = {
               labels: { singular: 'Termin', plural: 'Termini' },
               fields: [
                 { name: 'day', type: 'text', required: true, label: 'Dan', localized: true },
-                { name: 'times', type: 'text', required: true, label: 'Vrijeme' },
+                {
+                  name: 'times',
+                  type: 'text',
+                  required: true,
+                  label: 'Vrijeme',
+                  localized: true,
+                  admin: { description: 'Broj ili rečenica poput "Prije svake mise".' },
+                },
                 { name: 'note', type: 'text', label: 'Napomena', localized: true },
                 {
                   name: 'highlight',
@@ -103,7 +111,7 @@ export const Schedule: GlobalConfig = {
               fields: [
                 { name: 'title', type: 'text', required: true, label: 'Naziv', localized: true },
                 { name: 'day', type: 'text', label: 'Dan', localized: true },
-                { name: 'times', type: 'text', label: 'Vrijeme' },
+                { name: 'times', type: 'text', label: 'Vrijeme', localized: true },
                 { name: 'note', type: 'text', label: 'Napomena', localized: true },
               ],
             },
@@ -151,6 +159,7 @@ export const Schedule: GlobalConfig = {
                       type: 'text',
                       required: true,
                       label: 'Vrijeme',
+                      localized: true,
                       admin: { description: 'npr. 10h – 15h ili 9h, 10h, 12h i 17h' },
                     },
                     { name: 'note', type: 'text', label: 'Napomena', localized: true },

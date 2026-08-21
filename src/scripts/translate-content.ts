@@ -168,9 +168,9 @@ const schedule: Record<Locale, Record<string, unknown>> = {
     confessionsNote:
       'Za ispovijed izvan navedenih termina slobodno se javite župniku prije ili poslije svete mise.',
     devotions: [
-      { title: 'Klanjanje pred Presvetim', day: 'Četvrtkom', note: '' },
-      { title: 'Krunica', day: 'Svakoga dana', note: '' },
-      { title: 'Pobožnost prvih petaka', day: 'Prvi petak u mjesecu', note: 'Nakon mise pohod bolesnicima' },
+      { title: 'Klanjanje pred Presvetim', day: 'Četvrtkom', times: '18:00 – 19:00', note: '' },
+      { title: 'Krunica', day: 'Svakoga dana', times: 'Pola sata prije mise', note: '' },
+      { title: 'Pobožnost prvih petaka', day: 'Prvi petak u mjesecu', times: '18:00', note: 'Nakon mise pohod bolesnicima' },
     ],
     specialSchedule: [
       {
@@ -206,22 +206,22 @@ const schedule: Record<Locale, Record<string, unknown>> = {
   },
   en: {
     masses: [
-      { day: 'Sundays and holy days', times: '9:00, 11:00 i 20:00', note: 'The 11:00 Mass is sung' },
+      { day: 'Sundays and holy days', times: '9:00, 11:00 and 20:00', note: 'The 11:00 Mass is sung' },
       { day: 'Weekdays', times: '19:00', note: 'Monday to Saturday' },
     ],
     massesNote:
       'On holy days and during Lent and Advent the schedule may vary — announcements always appear in the parish news.',
     confessions: [
       { day: 'Weekdays', times: '18:30 – 19:00', note: 'Half an hour before Holy Mass' },
-      { day: 'Sundays', times: 'Prije svake mise', note: '' },
+      { day: 'Sundays', times: 'Before every Mass', note: '' },
       { day: 'First Friday of the month', times: '18:00 – 19:00', note: 'Confession for the sick and elderly by arrangement' },
     ],
     confessionsNote:
       'For confession outside these times, feel free to contact the parish priest before or after Mass.',
     devotions: [
-      { title: 'Adoration of the Blessed Sacrament', day: 'Thursdays', note: '' },
-      { title: 'Rosary', day: 'Every day', note: '' },
-      { title: 'First Fridays devotion', day: 'First Friday of the month', note: 'Visits to the sick after Mass' },
+      { title: 'Adoration of the Blessed Sacrament', day: 'Thursdays', times: '18:00 – 19:00', note: '' },
+      { title: 'Rosary', day: 'Every day', times: 'Half an hour before Mass', note: '' },
+      { title: 'First Fridays devotion', day: 'First Friday of the month', times: '18:00', note: 'Visits to the sick after Mass' },
     ],
     specialSchedule: [
       {
@@ -231,8 +231,8 @@ const schedule: Record<Locale, Record<string, unknown>> = {
           { day: '24 Dec, Thursday', times: '10h – 13h', note: null },
         ],
       },
-      { title: 'Christmas Masses', entries: [{ day: '25 Dec, Friday · Christmas', times: '9, 10, 12 i 17 sati', note: null }] },
-      { title: 'Blessing of homes', entries: [{ day: '12 May – 12 August', times: 'jutrom od 10 sati', note: null }] },
+      { title: 'Christmas Masses', entries: [{ day: '25 Dec, Friday · Christmas', times: '9, 10, 12 and 17 o\'clock', note: null }] },
+      { title: 'Blessing of homes', entries: [{ day: '12 May – 12 August', times: 'From 10 in the morning', note: null }] },
     ],
     officeHours: [
       { day: 'Monday – Friday', hours: '09:00 – 11:00', note: '' },
@@ -257,22 +257,22 @@ const schedule: Record<Locale, Record<string, unknown>> = {
   },
   it: {
     masses: [
-      { day: 'Domenica e giorni festivi', times: '9:00, 11:00 i 20:00', note: 'La Messa delle 11:00 è cantata' },
+      { day: 'Domenica e giorni festivi', times: '9:00, 11:00 e 20:00', note: 'La Messa delle 11:00 è cantata' },
       { day: 'Nei giorni feriali', times: '19:00', note: 'Da lunedì a sabato' },
     ],
     massesNote:
       "Nei giorni festivi e durante la Quaresima e l'Avvento l'orario può variare — gli avvisi sono sempre pubblicati nelle notizie parrocchiali.",
     confessions: [
       { day: 'Nei giorni feriali', times: '18:30 – 19:00', note: 'Mezz\'ora prima della Santa Messa' },
-      { day: 'Domenica', times: 'Prije svake mise', note: '' },
+      { day: 'Domenica', times: 'Prima di ogni Messa', note: '' },
       { day: 'Primo venerdì del mese', times: '18:00 – 19:00', note: 'Confessioni per malati e anziani su appuntamento' },
     ],
     confessionsNote:
       'Per confessarsi al di fuori di questi orari, rivolgersi liberamente al parroco prima o dopo la Santa Messa.',
     devotions: [
-      { title: 'Adorazione eucaristica', day: 'Il giovedì', note: '' },
-      { title: 'Rosario', day: 'Ogni giorno', note: '' },
-      { title: 'Devozione dei primi venerdì', day: 'Primo venerdì del mese', note: 'Visita ai malati dopo la Messa' },
+      { title: 'Adorazione eucaristica', day: 'Il giovedì', times: '18:00 – 19:00', note: '' },
+      { title: 'Rosario', day: 'Ogni giorno', times: 'Mezz\'ora prima della Messa', note: '' },
+      { title: 'Devozione dei primi venerdì', day: 'Primo venerdì del mese', times: '18:00', note: 'Visita ai malati dopo la Messa' },
     ],
     specialSchedule: [
       {
@@ -282,8 +282,8 @@ const schedule: Record<Locale, Record<string, unknown>> = {
           { day: '24/12, giovedì', times: '10h – 13h', note: null },
         ],
       },
-      { title: 'Sante Messe di Natale', entries: [{ day: '25/12, venerdì · Natale', times: '9, 10, 12 i 17 sati', note: null }] },
-      { title: 'Benedizione delle case', entries: [{ day: '12/5 – 12/8', times: 'jutrom od 10 sati', note: null }] },
+      { title: 'Sante Messe di Natale', entries: [{ day: '25/12, venerdì · Natale', times: '9, 10, 12 e 17', note: null }] },
+      { title: 'Benedizione delle case', entries: [{ day: '12/5 – 12/8', times: 'Al mattino dalle ore 10', note: null }] },
     ],
     officeHours: [
       { day: 'Lunedì – venerdì', hours: '09:00 – 11:00', note: '' },
@@ -315,15 +315,15 @@ const schedule: Record<Locale, Record<string, unknown>> = {
       'W święta oraz w okresie Wielkiego Postu i Adwentu harmonogram może się różnić — ogłoszenia zawsze znajdują się w aktualnościach parafialnych.',
     confessions: [
       { day: 'W dni powszednie', times: '18:30 – 19:00', note: 'Pół godziny przed Mszą Świętą' },
-      { day: 'W niedzielę', times: 'Prije svake mise', note: '' },
+      { day: 'W niedzielę', times: 'Przed każdą Mszą', note: '' },
       { day: 'Pierwszy piątek miesiąca', times: '18:00 – 19:00', note: 'Spowiedź dla chorych i starszych po uzgodnieniu' },
     ],
     confessionsNote:
       'Aby wyspowiadać się poza wymienionymi terminami, można zwrócić się do proboszcza przed lub po Mszy Świętej.',
     devotions: [
-      { title: 'Adoracja Najświętszego Sakramentu', day: 'W czwartki', note: '' },
-      { title: 'Różaniec', day: 'Codziennie', note: '' },
-      { title: 'Nabożeństwo pierwszych piątków', day: 'Pierwszy piątek miesiąca', note: 'Odwiedziny chorych po Mszy' },
+      { title: 'Adoracja Najświętszego Sakramentu', day: 'W czwartki', times: '18:00 – 19:00', note: '' },
+      { title: 'Różaniec', day: 'Codziennie', times: 'Pół godziny przed Mszą', note: '' },
+      { title: 'Nabożeństwo pierwszych piątków', day: 'Pierwszy piątek miesiąca', times: '18:00', note: 'Odwiedziny chorych po Mszy' },
     ],
     specialSchedule: [
       {
@@ -333,8 +333,8 @@ const schedule: Record<Locale, Record<string, unknown>> = {
           { day: '24.12, czwartek', times: '10h – 13h', note: null },
         ],
       },
-      { title: 'Msze Boże Narodzenie', entries: [{ day: '25.12, piątek · Boże Narodzenie', times: '9, 10, 12 i 17 sati', note: null }] },
-      { title: 'Błogosławieństwo domów', entries: [{ day: '12.05 – 12.08', times: 'jutrom od 10 sati', note: null }] },
+      { title: 'Msze Boże Narodzenie', entries: [{ day: '25.12, piątek · Boże Narodzenie', times: '9, 10, 12 i 17', note: null }] },
+      { title: 'Błogosławieństwo domów', entries: [{ day: '12.05 – 12.08', times: 'Rano od godziny 10', note: null }] },
     ],
     officeHours: [
       { day: 'Poniedziałek – piątek', hours: '09:00 – 11:00', note: '' },

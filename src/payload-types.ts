@@ -616,7 +616,7 @@ export interface Schedule {
          */
         day: string;
         /**
-         * npr. 9:00, 11:00 i 20:00
+         * npr. 9:00, 11:00 i 20:00 — ili rečenica poput "Prije svake mise".
          */
         times: string;
         note?: string | null;
@@ -628,6 +628,9 @@ export interface Schedule {
   confessions?:
     | {
         day: string;
+        /**
+         * Broj ili rečenica poput "Prije svake mise".
+         */
         times: string;
         note?: string | null;
         highlight?: boolean | null;

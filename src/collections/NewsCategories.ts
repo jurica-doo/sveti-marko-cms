@@ -18,12 +18,13 @@ export const NewsCategories: CollectionConfig = {
     delete: isAdminOrEditor,
   },
   fields: [
-    { name: 'title', type: 'text', required: true, label: 'Naziv' },
+    { name: 'title', type: 'text', required: true, label: 'Naziv', localized: true },
     slugField('title'),
     {
       name: 'description',
       type: 'textarea',
       label: 'Opis',
+      localized: true,
       admin: { description: 'Kratki opis kategorije, prikazuje se na popisu vijesti.' },
     },
   ],

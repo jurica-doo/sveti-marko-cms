@@ -19,9 +19,9 @@ export const UsefulLinks: CollectionConfig = {
   },
   defaultSort: 'order',
   fields: [
-    { name: 'title', type: 'text', required: true, label: 'Naziv' },
+    { name: 'title', type: 'text', required: true, label: 'Naziv', localized: true },
     { name: 'url', type: 'text', required: true, label: 'Poveznica (URL)' },
-    { name: 'description', type: 'textarea', label: 'Kratki opis' },
+    { name: 'description', type: 'textarea', label: 'Kratki opis', localized: true },
     {
       name: 'group',
       type: 'select',

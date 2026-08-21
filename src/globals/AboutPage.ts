@@ -20,9 +20,9 @@ export const AboutPage: GlobalConfig = {
         {
           label: 'Zaglavlje',
           fields: [
-            { name: 'eyebrow', type: 'text', label: 'Nadnaslov' },
-            { name: 'title', type: 'text', required: true, label: 'Naslov' },
-            { name: 'intro', type: 'textarea', label: 'Uvodni tekst' },
+            { name: 'eyebrow', type: 'text', label: 'Nadnaslov', localized: true },
+            { name: 'title', type: 'text', required: true, label: 'Naslov', localized: true },
+            { name: 'intro', type: 'textarea', label: 'Uvodni tekst', localized: true },
             { name: 'heroImage', type: 'upload', relationTo: 'media-images', label: 'Slika zaglavlja' },
           ],
         },
@@ -34,8 +34,8 @@ export const AboutPage: GlobalConfig = {
               type: 'group',
               label: 'O župi',
               fields: [
-                { name: 'title', type: 'text', label: 'Naslov' },
-                { name: 'body', type: 'richText', label: 'Tekst' },
+                { name: 'title', type: 'text', label: 'Naslov', localized: true },
+                { name: 'body', type: 'richText', label: 'Tekst', localized: true },
                 { name: 'image', type: 'upload', relationTo: 'media-images', label: 'Slika' },
               ],
             },
@@ -49,8 +49,8 @@ export const AboutPage: GlobalConfig = {
               type: 'group',
               label: 'O crkvi',
               fields: [
-                { name: 'title', type: 'text', label: 'Naslov' },
-                { name: 'body', type: 'richText', label: 'Tekst' },
+                { name: 'title', type: 'text', label: 'Naslov', localized: true },
+                { name: 'body', type: 'richText', label: 'Tekst', localized: true },
                 { name: 'image', type: 'upload', relationTo: 'media-images', label: 'Slika' },
               ],
             },
@@ -64,9 +64,9 @@ export const AboutPage: GlobalConfig = {
               type: 'group',
               label: 'Nebeski zaštitnik',
               fields: [
-                { name: 'title', type: 'text', label: 'Naslov' },
-                { name: 'feastDay', type: 'text', label: 'Blagdan', admin: { description: 'npr. 25. travnja' } },
-                { name: 'body', type: 'richText', label: 'Tekst' },
+                { name: 'title', type: 'text', label: 'Naslov', localized: true },
+                { name: 'feastDay', type: 'text', label: 'Blagdan', localized: true, admin: { description: 'npr. 25. travnja' } },
+                { name: 'body', type: 'richText', label: 'Tekst', localized: true },
                 { name: 'image', type: 'upload', relationTo: 'media-images', label: 'Slika' },
               ],
             },
@@ -75,8 +75,8 @@ export const AboutPage: GlobalConfig = {
         {
           label: 'SEO',
           fields: [
-            { name: 'metaTitle', type: 'text', label: 'SEO naslov' },
-            { name: 'metaDescription', type: 'textarea', label: 'SEO opis' },
+            { name: 'metaTitle', type: 'text', label: 'SEO naslov', localized: true },
+            { name: 'metaDescription', type: 'textarea', label: 'SEO opis', localized: true },
           ],
         },
       ],

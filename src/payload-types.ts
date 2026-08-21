@@ -94,7 +94,8 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale:
+    ('false' | 'none' | 'null') | false | null | ('hr' | 'en' | 'it' | 'pl') | ('hr' | 'en' | 'it' | 'pl')[];
   globals: {
     settings: Setting;
     schedule: Schedule;
@@ -111,7 +112,7 @@ export interface Config {
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
   };
-  locale: null;
+  locale: 'hr' | 'en' | 'it' | 'pl';
   widgets: {
     collections: CollectionsWidget;
   };

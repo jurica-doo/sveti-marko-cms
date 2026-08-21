@@ -20,9 +20,9 @@ export const ContactPage: GlobalConfig = {
         {
           label: 'Zaglavlje',
           fields: [
-            { name: 'eyebrow', type: 'text', label: 'Nadnaslov' },
-            { name: 'title', type: 'text', required: true, label: 'Naslov' },
-            { name: 'intro', type: 'textarea', label: 'Uvodni tekst' },
+            { name: 'eyebrow', type: 'text', label: 'Nadnaslov', localized: true },
+            { name: 'title', type: 'text', required: true, label: 'Naslov', localized: true },
+            { name: 'intro', type: 'textarea', label: 'Uvodni tekst', localized: true },
             { name: 'heroImage', type: 'upload', relationTo: 'media-images', label: 'Slika zaglavlja' },
           ],
         },
@@ -34,11 +34,17 @@ export const ContactPage: GlobalConfig = {
               type: 'group',
               label: 'Kontakt podaci',
               fields: [
-                { name: 'parishOfficeName', type: 'text', label: 'Naziv ureda', defaultValue: 'Župni ured' },
+                {
+                  name: 'parishOfficeName',
+                  type: 'text',
+                  label: 'Naziv ureda',
+                  defaultValue: 'Župni ured',
+                  localized: true,
+                },
                 { name: 'street', type: 'text', required: true, label: 'Ulica i broj' },
                 { name: 'postalCode', type: 'text', required: true, label: 'Poštanski broj' },
                 { name: 'city', type: 'text', required: true, label: 'Grad' },
-                { name: 'country', type: 'text', label: 'Država', defaultValue: 'Hrvatska' },
+                { name: 'country', type: 'text', label: 'Država', defaultValue: 'Hrvatska', localized: true },
                 { name: 'phone', type: 'text', label: 'Telefon' },
                 { name: 'mobile', type: 'text', label: 'Mobitel' },
                 { name: 'email', type: 'email', label: 'E-mail' },
@@ -74,8 +80,8 @@ export const ContactPage: GlobalConfig = {
         {
           label: 'SEO',
           fields: [
-            { name: 'metaTitle', type: 'text', label: 'SEO naslov' },
-            { name: 'metaDescription', type: 'textarea', label: 'SEO opis' },
+            { name: 'metaTitle', type: 'text', label: 'SEO naslov', localized: true },
+            { name: 'metaDescription', type: 'textarea', label: 'SEO opis', localized: true },
           ],
         },
       ],

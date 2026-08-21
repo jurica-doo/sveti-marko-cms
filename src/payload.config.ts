@@ -67,6 +67,24 @@ export default buildConfig({
 
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+
+  /**
+   * hr is primary (defaultLocale): it is what every document is written in
+   * first, and what `fallback: true` serves for en/it/pl fields the office
+   * has not translated yet — so the site never shows blank copy while a
+   * translation is in progress, it just shows Croatian until it lands.
+   */
+  localization: {
+    locales: [
+      { code: 'hr', label: 'Hrvatski' },
+      { code: 'en', label: 'English' },
+      { code: 'it', label: 'Italiano' },
+      { code: 'pl', label: 'Polski' },
+    ],
+    defaultLocale: 'hr',
+    fallback: true,
+  },
+
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

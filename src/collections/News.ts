@@ -24,7 +24,7 @@ export const News: CollectionConfig = {
   },
   defaultSort: '-publishedAt',
   fields: [
-    { name: 'title', type: 'text', required: true, label: 'Naslov' },
+    { name: 'title', type: 'text', required: true, label: 'Naslov', localized: true },
     slugField('title'),
     {
       name: 'publishedAt',
@@ -66,12 +66,14 @@ export const News: CollectionConfig = {
       required: true,
       label: 'Sažetak',
       maxLength: 320,
+      localized: true,
       admin: { description: 'Kratki uvod prikazan na kartici vijesti i u SEO opisu.' },
     },
     {
       name: 'content',
       type: 'richText',
       label: 'Sadržaj',
+      localized: true,
     },
     {
       name: 'gallery',

@@ -25,10 +25,12 @@ export const MediaVideos: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'caption',
       type: 'text',
+      localized: true,
     },
   ],
 }

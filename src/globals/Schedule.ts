@@ -37,6 +37,7 @@ export const Schedule: GlobalConfig = {
                   type: 'text',
                   required: true,
                   label: 'Dan',
+                  localized: true,
                   admin: { description: 'npr. Nedjelja, Radnim danom, Subota' },
                 },
                 {
@@ -46,7 +47,7 @@ export const Schedule: GlobalConfig = {
                   label: 'Vrijeme',
                   admin: { description: 'npr. 9:00, 11:00 i 20:00' },
                 },
-                { name: 'note', type: 'text', label: 'Napomena' },
+                { name: 'note', type: 'text', label: 'Napomena', localized: true },
                 {
                   name: 'highlight',
                   type: 'checkbox',
@@ -55,7 +56,12 @@ export const Schedule: GlobalConfig = {
                 },
               ],
             },
-            { name: 'massesNote', type: 'textarea', label: 'Napomena uz raspored misa' },
+            {
+              name: 'massesNote',
+              type: 'textarea',
+              label: 'Napomena uz raspored misa',
+              localized: true,
+            },
           ],
         },
         {
@@ -67,9 +73,9 @@ export const Schedule: GlobalConfig = {
               label: 'Prilika za ispovijed',
               labels: { singular: 'Termin', plural: 'Termini' },
               fields: [
-                { name: 'day', type: 'text', required: true, label: 'Dan' },
+                { name: 'day', type: 'text', required: true, label: 'Dan', localized: true },
                 { name: 'times', type: 'text', required: true, label: 'Vrijeme' },
-                { name: 'note', type: 'text', label: 'Napomena' },
+                { name: 'note', type: 'text', label: 'Napomena', localized: true },
                 {
                   name: 'highlight',
                   type: 'checkbox',
@@ -78,7 +84,12 @@ export const Schedule: GlobalConfig = {
                 },
               ],
             },
-            { name: 'confessionsNote', type: 'textarea', label: 'Napomena uz ispovijed' },
+            {
+              name: 'confessionsNote',
+              type: 'textarea',
+              label: 'Napomena uz ispovijed',
+              localized: true,
+            },
           ],
         },
         {
@@ -90,10 +101,10 @@ export const Schedule: GlobalConfig = {
               label: 'Klanjanje i pobožnosti',
               labels: { singular: 'Pobožnost', plural: 'Pobožnosti' },
               fields: [
-                { name: 'title', type: 'text', required: true, label: 'Naziv' },
-                { name: 'day', type: 'text', label: 'Dan' },
+                { name: 'title', type: 'text', required: true, label: 'Naziv', localized: true },
+                { name: 'day', type: 'text', label: 'Dan', localized: true },
                 { name: 'times', type: 'text', label: 'Vrijeme' },
-                { name: 'note', type: 'text', label: 'Napomena' },
+                { name: 'note', type: 'text', label: 'Napomena', localized: true },
               ],
             },
           ],
@@ -116,6 +127,7 @@ export const Schedule: GlobalConfig = {
                   type: 'text',
                   required: true,
                   label: 'Naslov',
+                  localized: true,
                   admin: { description: 'npr. Božićna ispovijed' },
                 },
                 { name: 'active', type: 'checkbox', label: 'Prikaži', defaultValue: true },
@@ -131,6 +143,7 @@ export const Schedule: GlobalConfig = {
                       type: 'text',
                       required: true,
                       label: 'Dan',
+                      localized: true,
                       admin: { description: 'npr. 23.12. ponedjeljak' },
                     },
                     {
@@ -140,7 +153,7 @@ export const Schedule: GlobalConfig = {
                       label: 'Vrijeme',
                       admin: { description: 'npr. 10h – 15h ili 9h, 10h, 12h i 17h' },
                     },
-                    { name: 'note', type: 'text', label: 'Napomena' },
+                    { name: 'note', type: 'text', label: 'Napomena', localized: true },
                   ],
                 },
               ],
@@ -156,15 +169,16 @@ export const Schedule: GlobalConfig = {
               label: 'Radno vrijeme župnog ureda',
               labels: { singular: 'Termin', plural: 'Termini' },
               fields: [
-                { name: 'day', type: 'text', required: true, label: 'Dan' },
+                { name: 'day', type: 'text', required: true, label: 'Dan', localized: true },
                 {
                   name: 'hours',
                   type: 'text',
                   required: true,
                   label: 'Vrijeme',
+                  localized: true,
                   admin: { description: 'npr. 09:00 - 11:00 ili Zatvoreno' },
                 },
-                { name: 'note', type: 'text', label: 'Napomena' },
+                { name: 'note', type: 'text', label: 'Napomena', localized: true },
               ],
             },
             {
@@ -173,8 +187,8 @@ export const Schedule: GlobalConfig = {
               label: 'Važne napomene',
               labels: { singular: 'Napomena', plural: 'Napomene' },
               fields: [
-                { name: 'title', type: 'text', required: true, label: 'Naslov' },
-                { name: 'text', type: 'textarea', required: true, label: 'Tekst' },
+                { name: 'title', type: 'text', required: true, label: 'Naslov', localized: true },
+                { name: 'text', type: 'textarea', required: true, label: 'Tekst', localized: true },
               ],
             },
           ],

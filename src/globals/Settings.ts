@@ -20,15 +20,16 @@ export const Settings: GlobalConfig = {
         {
           label: 'Identitet',
           fields: [
-            { name: 'siteName', type: 'text', required: true, label: 'Naziv župe' },
-            { name: 'shortName', type: 'text', label: 'Kratki naziv (navbar)' },
-            { name: 'tagline', type: 'text', label: 'Podnaslov / geslo' },
+            { name: 'siteName', type: 'text', required: true, label: 'Naziv župe', localized: true },
+            { name: 'shortName', type: 'text', label: 'Kratki naziv (navbar)', localized: true },
+            { name: 'tagline', type: 'text', label: 'Podnaslov / geslo', localized: true },
             { name: 'logo', type: 'upload', relationTo: 'media-images', label: 'Logo / grb' },
             {
               name: 'diocese',
               type: 'text',
               label: 'Nadbiskupija / biskupija',
               defaultValue: 'Splitsko-makarska nadbiskupija',
+              localized: true,
             },
           ],
         },
@@ -41,7 +42,7 @@ export const Settings: GlobalConfig = {
               label: 'Traka na vrhu stranice',
               fields: [
                 { name: 'enabled', type: 'checkbox', label: 'Prikaži traku', defaultValue: false },
-                { name: 'text', type: 'text', label: 'Tekst' },
+                { name: 'text', type: 'text', label: 'Tekst', localized: true },
                 { name: 'href', type: 'text', label: 'Poveznica (nije obavezno)' },
               ],
             },
@@ -56,7 +57,7 @@ export const Settings: GlobalConfig = {
               label: 'Glavni izbornik',
               labels: { singular: 'Stavka', plural: 'Stavke' },
               fields: [
-                { name: 'label', type: 'text', required: true, label: 'Naziv' },
+                { name: 'label', type: 'text', required: true, label: 'Naziv', localized: true },
                 {
                   name: 'href',
                   type: 'text',
@@ -71,7 +72,7 @@ export const Settings: GlobalConfig = {
               type: 'group',
               label: 'Gumb u zaglavlju',
               fields: [
-                { name: 'label', type: 'text', label: 'Naziv' },
+                { name: 'label', type: 'text', label: 'Naziv', localized: true },
                 { name: 'href', type: 'text', label: 'Putanja' },
               ],
             },
@@ -80,7 +81,7 @@ export const Settings: GlobalConfig = {
         {
           label: 'Podnožje',
           fields: [
-            { name: 'footerIntro', type: 'textarea', label: 'Uvodni tekst u podnožju' },
+            { name: 'footerIntro', type: 'textarea', label: 'Uvodni tekst u podnožju', localized: true },
             {
               name: 'footerColumns',
               type: 'array',
@@ -88,19 +89,19 @@ export const Settings: GlobalConfig = {
               labels: { singular: 'Stupac', plural: 'Stupci' },
               maxRows: 3,
               fields: [
-                { name: 'title', type: 'text', required: true, label: 'Naslov stupca' },
+                { name: 'title', type: 'text', required: true, label: 'Naslov stupca', localized: true },
                 {
                   name: 'links',
                   type: 'array',
                   label: 'Poveznice',
                   fields: [
-                    { name: 'label', type: 'text', required: true, label: 'Naziv' },
+                    { name: 'label', type: 'text', required: true, label: 'Naziv', localized: true },
                     { name: 'href', type: 'text', required: true, label: 'Putanja ili URL' },
                   ],
                 },
               ],
             },
-            { name: 'copyright', type: 'text', label: 'Tekst autorskih prava' },
+            { name: 'copyright', type: 'text', label: 'Tekst autorskih prava', localized: true },
           ],
         },
         {

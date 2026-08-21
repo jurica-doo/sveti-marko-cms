@@ -14,9 +14,9 @@ export const NewsPage: GlobalConfig = {
     update: isAdminOrEditor,
   },
   fields: [
-    { name: 'eyebrow', type: 'text', label: 'Nadnaslov' },
-    { name: 'title', type: 'text', required: true, label: 'Naslov' },
-    { name: 'intro', type: 'textarea', label: 'Uvodni tekst' },
+    { name: 'eyebrow', type: 'text', label: 'Nadnaslov', localized: true },
+    { name: 'title', type: 'text', required: true, label: 'Naslov', localized: true },
+    { name: 'intro', type: 'textarea', label: 'Uvodni tekst', localized: true },
     { name: 'heroImage', type: 'upload', relationTo: 'media-images', label: 'Slika zaglavlja' },
     {
       name: 'perPage',
@@ -26,8 +26,8 @@ export const NewsPage: GlobalConfig = {
       min: 3,
       max: 30,
     },
-    { name: 'emptyMessage', type: 'text', label: 'Poruka kad nema vijesti' },
-    { name: 'metaTitle', type: 'text', label: 'SEO naslov' },
-    { name: 'metaDescription', type: 'textarea', label: 'SEO opis' },
+    { name: 'emptyMessage', type: 'text', label: 'Poruka kad nema vijesti', localized: true },
+    { name: 'metaTitle', type: 'text', label: 'SEO naslov', localized: true },
+    { name: 'metaDescription', type: 'textarea', label: 'SEO opis', localized: true },
   ],
 }

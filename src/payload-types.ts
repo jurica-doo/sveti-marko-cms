@@ -643,6 +643,33 @@ export interface Schedule {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Privremeni blokovi za blagdane i posebne prigode — npr. "Božićna ispovijed" ili "Uskrsne mise". Prikazuje se istaknuto iznad redovnog rasporeda. Kad prigoda prođe, ugasite "Prikaži" umjesto brisanja — spremno je za sljedeću godinu.
+   */
+  specialSchedule?:
+    | {
+        /**
+         * npr. Božićna ispovijed
+         */
+        title: string;
+        active?: boolean | null;
+        entries?:
+          | {
+              /**
+               * npr. 23.12. ponedjeljak
+               */
+              day: string;
+              /**
+               * npr. 10h – 15h ili 9h, 10h, 12h i 17h
+               */
+              times: string;
+              note?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   officeHours?:
     | {
         day: string;
@@ -952,6 +979,21 @@ export interface ScheduleSelect<T extends boolean = true> {
         day?: T;
         times?: T;
         note?: T;
+        id?: T;
+      };
+  specialSchedule?:
+    | T
+    | {
+        title?: T;
+        active?: T;
+        entries?:
+          | T
+          | {
+              day?: T;
+              times?: T;
+              note?: T;
+              id?: T;
+            };
         id?: T;
       };
   officeHours?:

@@ -99,6 +99,55 @@ export const Schedule: GlobalConfig = {
           ],
         },
         {
+          label: 'Posebno',
+          fields: [
+            {
+              name: 'specialSchedule',
+              type: 'array',
+              label: 'Prigodni raspored',
+              labels: { singular: 'Blok', plural: 'Blokovi' },
+              admin: {
+                description:
+                  'Privremeni blokovi za blagdane i posebne prigode — npr. "Božićna ispovijed" ili "Uskrsne mise". Prikazuje se istaknuto iznad redovnog rasporeda. Kad prigoda prođe, ugasite "Prikaži" umjesto brisanja — spremno je za sljedeću godinu.',
+              },
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  required: true,
+                  label: 'Naslov',
+                  admin: { description: 'npr. Božićna ispovijed' },
+                },
+                { name: 'active', type: 'checkbox', label: 'Prikaži', defaultValue: true },
+                {
+                  name: 'entries',
+                  type: 'array',
+                  label: 'Termini',
+                  labels: { singular: 'Termin', plural: 'Termini' },
+                  minRows: 1,
+                  fields: [
+                    {
+                      name: 'day',
+                      type: 'text',
+                      required: true,
+                      label: 'Dan',
+                      admin: { description: 'npr. 23.12. ponedjeljak' },
+                    },
+                    {
+                      name: 'times',
+                      type: 'text',
+                      required: true,
+                      label: 'Vrijeme',
+                      admin: { description: 'npr. 10h – 15h ili 9h, 10h, 12h i 17h' },
+                    },
+                    { name: 'note', type: 'text', label: 'Napomena' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'Župni ured',
           fields: [
             {

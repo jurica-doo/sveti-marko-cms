@@ -14,6 +14,20 @@ const devOrigins = (process.env.DEV_ORIGINS || '192.168.1.145')
   .filter(Boolean)
 
 const nextConfig: NextConfig = {
+  /*
+   * Belt and braces alongside `src/app/robots.txt/route.ts`: a header travels
+   * with every response, including the JSON API, so the CMS cannot be indexed
+   * even if a URL is discovered without robots.txt being fetched first.
+   */
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+    ]
+  },
+
   allowedDevOrigins: devOrigins,
   images: {
     localPatterns: [

@@ -1,22 +1,26 @@
 import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
 import { getPayload } from 'payload'
 import React from 'react'
-import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
 import './styles.css'
 
+/**
+ * The root of the CMS app.
+ *
+ * Nobody browses here on purpose — the parish site is `sveti-marko-web`, which
+ * reads this app's REST API — so this page exists to do two things for whoever
+ * does land on it: say plainly which system they are looking at, and hand them
+ * the door to the admin panel. It is dressed in the site's own material so
+ * that answer is obvious before a word of it is read.
+ */
 export default async function HomePage() {
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
-
   // `getPayload()` throws — it doesn't reject into something a caller can
   // check — the moment the CMS can't come up: no `PAYLOAD_SECRET`, an
-  // unreachable `DATABASE_URL`, whatever. Uncaught, that turns this scaffold
-  // page (nobody ships it — the real site is `sveti-marko-web`, which reads
-  // the REST API instead) into a hard 500 the instant someone opens the CMS
-  // root. Catching it here keeps the failure local and says what's actually
-  // wrong instead of a raw stack trace.
+  // unreachable `DATABASE_URL`, whatever. Uncaught, that turns this page into
+  // a hard 500 the instant someone opens the CMS root. Catching it here keeps
+  // the failure local and says what's actually wrong instead of a raw stack
+  // trace.
   let user: { email: string } | undefined
   let initError: string | null = null
 
@@ -31,73 +35,59 @@ export default async function HomePage() {
     console.error('Payload failed to initialize:', error)
   }
 
-  if (initError) {
-    return (
-      <div className="home">
-        <div className="content">
-          <h1>CMS nije pokrenut</h1>
-          <p style={{ maxWidth: 560, textAlign: 'center', opacity: 0.75 }}>
-            Payload se nije uspio inicijalizirati. Provjerite je li{' '}
-            <code>.env</code> postavljen (<code>PAYLOAD_SECRET</code>,{' '}
-            <code>DATABASE_URL</code> i S3/Supabase varijable) i je li baza
-            podataka dostupna, pa ponovno pokrenite <code>npm run dev</code>.
-          </p>
-          <p
-            style={{
-              maxWidth: 560,
-              textAlign: 'center',
-              opacity: 0.5,
-              fontSize: '0.8em',
-              fontFamily: 'var(--font-mono)',
-            }}
-          >
-            {initError}
-          </p>
-        </div>
-        <div className="footer">
-          <p>Update this page by editing</p>
-          <a className="codeLink" href={fileURL}>
-            <code>app/(frontend)/page.tsx</code>
-          </a>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a className="admin" href="/admin" rel="noopener noreferrer" target="_blank">
-            Go to admin panel
+      <div className="home__panel">
+        <span aria-hidden="true" className="home__mark" />
+
+        <p className="eyebrow">Sustav za uređivanje sadržaja</p>
+        <h1 className="home__title">Župa sv. Marka Evanđelista</h1>
+        <p className="home__place">Neslanovac, Split</p>
+
+        {initError ? (
+          <>
+            <p className="home__lede">
+              Payload se nije uspio pokrenuti. Provjerite je li <code>.env</code> postavljen
+              (<code>PAYLOAD_SECRET</code>, <code>DATABASE_URL</code> te S3/Supabase varijable) i je
+              li baza podataka dostupna, pa ponovno pokrenite <code>npm run dev</code>.
+            </p>
+            <p className="home__error">{initError}</p>
+          </>
+        ) : (
+          <p className="home__lede">
+            {user ? (
+              <>
+                Prijavljeni ste kao <strong>{user.email}</strong>. Uredništvo stranice nalazi se u
+                administratorskom sučelju.
+              </>
+            ) : (
+              <>
+                Ovdje se uređuju vijesti, raspored misa i sadržaj stranica župe. Za nastavak se
+                prijavite u administratorsko sučelje.
+              </>
+            )}
+          </p>
+        )}
+
+        <div className="home__actions">
+          <a className="btn btn--solid" href="/admin">
+            {user ? 'Otvori sučelje' : 'Prijava'}
           </a>
           <a
-            className="docs"
+            className="btn btn--outline"
             href="https://payloadcms.com/docs"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Documentation
+            Dokumentacija
           </a>
         </div>
       </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div>
+
+      <p className="home__footer">
+        Splitsko-makarska nadbiskupija · Sadržaj objavljen ovdje pojavljuje se na javnoj stranici
+        župe.
+      </p>
     </div>
   )
 }

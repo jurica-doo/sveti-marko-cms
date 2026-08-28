@@ -1,0 +1,587 @@
+/**
+ * Župa sv. Marka — admin panel theme.
+ *
+ * The panel is where the parish office spends its time, so it is dressed in
+ * the same material as the site it publishes: Brač limestone (stone), the
+ * Adriatic seen from the hill (sea), and the brass fittings inside (brass).
+ * Every value below is lifted verbatim from `sveti-marko-web/app/globals.css`
+ * — this file is a translation of that palette into Payload's variables, not a
+ * second palette that has to be kept in step by hand.
+ *
+ * HOW THIS WORKS, AND WHY IT IS SHORT
+ *
+ * Payload derives almost its entire surface from one 21-step neutral ramp,
+ * `--color-base-0 … --color-base-1000`, which it maps through
+ * `--theme-elevation-*` (inverting that mapping for the dark theme). Page
+ * backgrounds, cards, borders, table stripes, disabled states, primary buttons
+ * — all of it reads from that ramp. So the bulk of the re-skin is a single
+ * block: replace the grey ramp with a stone→ink one and the whole panel moves
+ * to the parish palette at once, including every component not named here and
+ * every one a future Payload release adds.
+ *
+ * The rest of the file is only what the ramp cannot express: the two type
+ * faces, the square-edged geometry, and the sea/brass accents.
+ *
+ * CASCADE
+ *
+ * Payload ships its styles inside `@layer payload-default` and `@layer
+ * payload`. Everything here is unlayered, and unlayered styles outrank every
+ * layer regardless of selector weight — which is why almost nothing below
+ * needs `!important` or a specificity fight.
+ */
+
+:root {
+  /*
+   * Fallbacks only. `components/admin/Fonts.tsx` re-points both tokens at the
+   * hashed `next/font` families once it renders; these keep the panel legible
+   * in the moment before that, and if it ever fails to render at all.
+   */
+  --font-parish-display: 'Marcellus', 'Times New Roman', serif;
+  --font-parish-sans: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+
+  /* Brass — the accent. Marks state and structure, never a surface. */
+  --parish-brass-600: #8f6c2c;
+  --parish-brass-500: #a8813c;
+  --parish-brass-300: #c9a55f;
+  --parish-brass-100: #ebdcbb;
+
+  /*
+   * THE RAMP.
+   *
+   * Warm stone at the light end, the site's `ink` family at the dark end,
+   * bridged by neutral greys that drift from warm to cool across the middle so
+   * neither end reads as tinted. The steps that carry the most weight land on
+   * site colours exactly: 600 is ink-400, 700 is ink-500, 800 is ink-700,
+   * 850 is ink-800, 900 is ink-900, and 100/200/300 are stone-100/200/300.
+   *
+   * base-0 stays pure white: in the light theme it is the raised surface
+   * (inputs, cards, popups) that has to separate from the stone page beneath
+   * it, and in the dark theme Payload only uses it as the top of the inverted
+   * scale, which `--theme-text` overrides below anyway.
+   */
+  --color-base-0: rgb(255, 255, 255);
+  --color-base-50: rgb(248, 248, 244);
+  --color-base-100: rgb(242, 240, 234);
+  --color-base-150: rgb(234, 232, 223);
+  --color-base-200: rgb(227, 223, 212);
+  --color-base-250: rgb(216, 212, 198);
+  --color-base-300: rgb(206, 200, 185);
+  --color-base-350: rgb(192, 188, 174);
+  --color-base-400: rgb(179, 175, 162);
+  --color-base-450: rgb(164, 162, 152);
+  --color-base-500: rgb(150, 150, 142);
+  --color-base-550: rgb(128, 135, 136);
+  --color-base-600: rgb(106, 120, 131);
+  --color-base-650: rgb(88, 105, 117);
+  --color-base-700: rgb(70, 90, 103);
+  --color-base-750: rgb(50, 72, 84);
+  --color-base-800: rgb(29, 53, 66);
+  --color-base-850: rgb(22, 41, 52);
+  --color-base-900: rgb(16, 29, 38);
+  --color-base-950: rgb(12, 22, 30);
+  --color-base-1000: rgb(7, 15, 21);
+
+  /*
+   * Payload's "success"/blue role, rebuilt on the site's `sea` family.
+   *
+   * This is not a colour change so much as a correction of hue: Payload's
+   * success ramp is already a blue (`rgb(21,135,186)` at 500), and it is what
+   * drives focus rings, the primary link colour and the saved-state toast. The
+   * `sea` family occupies the same slot on the site, so dropping it in here
+   * makes those states match the site's `text-sea-700` links rather than
+   * approximate them. 600/700/800 are sea-600/700/800 verbatim.
+   */
+  --color-blue-50: rgb(238, 244, 247);
+  --color-blue-100: rgb(219, 233, 239);
+  --color-blue-150: rgb(200, 222, 232);
+  --color-blue-200: rgb(182, 211, 224);
+  --color-blue-250: rgb(160, 198, 214);
+  --color-blue-300: rgb(138, 184, 204);
+  --color-blue-350: rgb(112, 168, 192);
+  --color-blue-400: rgb(85, 151, 179);
+  --color-blue-450: rgb(64, 140, 168);
+  --color-blue-500: rgb(43, 128, 157);
+  --color-blue-550: rgb(36, 120, 147);
+  --color-blue-600: rgb(29, 111, 137);
+  --color-blue-650: rgb(26, 100, 124);
+  --color-blue-700: rgb(23, 90, 112);
+  --color-blue-750: rgb(20, 80, 101);
+  --color-blue-800: rgb(18, 71, 90);
+  --color-blue-850: rgb(16, 62, 80);
+  --color-blue-900: rgb(14, 53, 71);
+  --color-blue-950: rgb(11, 39, 51);
+
+  --color-success-50: var(--color-blue-50);
+  --color-success-100: var(--color-blue-100);
+  --color-success-150: var(--color-blue-150);
+  --color-success-200: var(--color-blue-200);
+  --color-success-250: var(--color-blue-250);
+  --color-success-300: var(--color-blue-300);
+  --color-success-350: var(--color-blue-350);
+  --color-success-400: var(--color-blue-400);
+  --color-success-450: var(--color-blue-450);
+  --color-success-500: var(--color-blue-500);
+  --color-success-550: var(--color-blue-550);
+  --color-success-600: var(--color-blue-600);
+  --color-success-650: var(--color-blue-650);
+  --color-success-700: var(--color-blue-700);
+  --color-success-750: var(--color-blue-750);
+  --color-success-800: var(--color-blue-800);
+  --color-success-850: var(--color-blue-850);
+  --color-success-900: var(--color-blue-900);
+  --color-success-950: var(--color-blue-950);
+
+  /*
+   * Square edges. The site rounds nothing structural — cards, buttons, inputs
+   * and images are all cut square, and the only radii on it are the language
+   * pills and the lightbox controls, which are full circles. Payload's 3/4/8px
+   * defaults are the single largest thing that reads as "generic admin panel",
+   * so they go to zero; `-l` keeps 2px because it lands on `.pill--rounded`
+   * and the error pill, where a hairline of softening stops the corners
+   * looking clipped.
+   */
+  --style-radius-s: 0px;
+  --style-radius-m: 0px;
+  --style-radius-l: 2px;
+
+  /* The site's focus ring: 2px brass, held off the element. */
+  --accessibility-outline: 2px solid var(--parish-brass-500);
+  --accessibility-outline-offset: 3px;
+
+  --parish-panel-shadow: 0 18px 40px -28px rgb(16 29 38 / 0.55);
+}
+
+/*
+ * LIGHT THEME
+ *
+ * The page is stone, not white. That is the one deviation from Payload's
+ * defaults that matters here: it leaves `--theme-elevation-0` (white) free to
+ * act as the raised surface, so inputs, cards and popups separate from the
+ * page by material rather than by a border alone — which is how the site
+ * builds its own card surfaces.
+ */
+html {
+  --theme-bg: #faf9f6;
+  --theme-input-bg: var(--color-base-0);
+  --theme-text: var(--color-base-800);
+  --theme-border-color: var(--color-base-200);
+}
+
+/*
+ * DARK THEME
+ *
+ * Payload inverts the ramp for us, so the surfaces already land on ink-900 for
+ * the page and ink-800 for cards. Only two things need saying: text is stone,
+ * not the pure white the inverted scale would give (white on ink at body size
+ * is harsh, and the site uses stone-50 for exactly this), and inputs sit a
+ * step above the page rather than below it.
+ */
+html[data-theme='dark'] {
+  --theme-bg: var(--color-base-900);
+  --theme-input-bg: var(--color-base-850);
+  --theme-text: #f2f0ea;
+  --theme-border-color: var(--color-base-750);
+}
+
+/////////////////////////////////////////////////
+// TYPOGRAPHY
+/////////////////////////////////////////////////
+
+/*
+ * Source Sans for the interface, Marcellus for anything that names something.
+ *
+ * Marcellus is cut from Roman inscriptional capitals — the lettering that runs
+ * across church façades — and it is the site's display voice. In the panel it
+ * is reserved for titles: the wordmark, the dashboard and list headings, the
+ * document title. Applying it any further would cost legibility in a tool
+ * people read all day, which is the same line the site draws.
+ */
+body,
+input,
+textarea,
+select,
+button {
+  font-family: var(--font-parish-sans);
+}
+
+:root {
+  --font-body: var(--font-parish-sans);
+  --font-serif: var(--font-parish-display);
+}
+
+h1,
+.doc-header__title,
+.list-header__title,
+.step-nav a:first-child,
+.parish-brand__name {
+  font-family: var(--font-parish-display);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+/*
+ * A note on units: every size below is in px, not rem.
+ *
+ * Payload sets the root font-size to 13px, and drops it to 12px under its
+ * `mid-break` query. `rem` here would therefore mean 13/16ths of what the same
+ * number means on the site, and would shift again on a narrow screen — small
+ * uppercase labels landed at 9px before this was caught. px states the
+ * intended size once and holds it.
+ */
+
+/*
+ * The eyebrow: letterspaced small caps in brass, the site's only
+ * section-labelling device. Reused here for the two places the panel labels a
+ * group of things — the nav's collection groups and every field label — so
+ * structure reads the same in the panel as it does on the site.
+ */
+.nav-group__toggle,
+.nav__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--parish-brass-600);
+}
+
+html[data-theme='dark'] .nav-group__toggle,
+html[data-theme='dark'] .nav__label {
+  color: var(--parish-brass-300);
+}
+
+.nav-group__toggle:hover {
+  color: var(--parish-brass-500);
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-600);
+}
+
+::selection {
+  background: var(--parish-brass-100);
+  color: var(--color-base-900);
+}
+
+/////////////////////////////////////////////////
+// NAVIGATION
+/////////////////////////////////////////////////
+
+/*
+ * The sidebar is given its own surface rather than sharing the page's. On the
+ * site the header and footer are the only full-bleed blocks of flat colour,
+ * and this is the panel's equivalent: it separates the "where am I" column
+ * from the "what am I editing" column by material, so the eye finds it without
+ * a heavier border.
+ */
+.nav {
+  background: var(--color-base-100);
+  border-right: 1px solid var(--theme-border-color);
+}
+
+html[data-theme='dark'] .nav {
+  background: var(--color-base-950);
+}
+
+.nav__link {
+  transition:
+    color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The site's inline links slide toward the thing they open; so do these. */
+.nav__link:hover {
+  color: var(--parish-brass-600);
+  transform: translateX(3px);
+}
+
+html[data-theme='dark'] .nav__link:hover {
+  color: var(--parish-brass-300);
+}
+
+/* The current-page marker, in brass — the same job the navbar underline does. */
+.nav__link-indicator {
+  background: var(--parish-brass-500);
+}
+
+/////////////////////////////////////////////////
+// CONTROLS
+/////////////////////////////////////////////////
+
+/*
+ * Buttons take the site's `Button.tsx` shape wholesale: small, semibold,
+ * uppercase, tracked to 0.16em, square. That combination is far more of a
+ * brand signature than the fill colour is, and it is what makes a Payload
+ * "Save" read as belonging to the same family as a "Više o župi" on the site.
+ */
+.btn {
+  --btn-font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Primary = the site's solid variant: sea-800, stone text, sea-700 on hover. */
+.btn--style-primary {
+  --bg-color: #12475a;
+  --color: #faf9f6;
+  --hover-bg: #175a70;
+  --hover-color: #faf9f6;
+}
+
+/* Secondary = the outline variant, which warms to brass rather than fading. */
+.btn--style-secondary {
+  --btn-border: 1px solid var(--theme-elevation-300);
+  --hover-color: var(--parish-brass-600);
+  --hover-btn-border: 1px solid var(--parish-brass-500);
+}
+
+html[data-theme='dark'] .btn--style-secondary {
+  --hover-color: var(--parish-brass-300);
+  --hover-btn-border: 1px solid var(--parish-brass-300);
+}
+
+/*
+ * Inputs. Payload gives every field a small drop shadow to lift it off the
+ * page; with a stone page and white fields the material already does that, and
+ * the shadow only muddies the corners now they are square. A brass border on
+ * focus pairs with the brass focus ring above.
+ */
+.field-type input,
+.field-type textarea,
+.field-type .rs__control,
+.search-filter__input {
+  box-shadow: none;
+  border-color: var(--theme-border-color);
+}
+
+.field-type input:focus,
+.field-type textarea:focus,
+.field-type .rs__control--is-focused,
+.search-filter__input:focus {
+  border-color: var(--parish-brass-500);
+  box-shadow: none;
+}
+
+/////////////////////////////////////////////////
+// SURFACES
+/////////////////////////////////////////////////
+
+/*
+ * Dashboard and list cards.
+ *
+ * The surface has to be named per theme rather than through one elevation
+ * token. `--theme-elevation-0` is white in the light theme, which is what a
+ * card wants against the stone page — but the dark theme inverts the scale and
+ * that same token becomes base-900, exactly the page colour, so every card
+ * would go flat. base-850 is the step above the dark page, the way white is
+ * the step above the light one.
+ */
+.card {
+  background: var(--theme-elevation-0);
+  border-color: var(--theme-border-color);
+  transition:
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * The site's card hover: a 4px lift on the shared curve, with the same shadow.
+ * Nothing else in the panel moves on hover, so this is safe to state plainly
+ * rather than through the pointer-shield machinery the site needs for cards
+ * that sit edge to edge.
+ */
+.card:hover {
+  border-color: var(--parish-brass-500);
+  transform: translateY(-4px);
+  box-shadow: var(--parish-panel-shadow);
+}
+
+html[data-theme='dark'] .card {
+  background: var(--color-base-850);
+}
+
+.table thead th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-500);
+}
+
+/* A hairline rather than a filled band under the document title. */
+.doc-header:after {
+  background: var(--theme-border-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:hover,
+  .nav__link,
+  .nav__link:hover {
+    transform: none;
+    transition-duration: 320ms;
+  }
+}
+
+/////////////////////////////////////////////////
+// BRAND MARK
+/////////////////////////////////////////////////
+
+/*
+ * `Logo.tsx` and `Icon.tsx` render the church outline through these. It is a
+ * mask filled with `currentColor`, not an image: the panel has a light and a
+ * dark theme the user can switch at runtime, and a coloured file would need
+ * two variants and a swap. Masking makes the mark inherit whatever colour the
+ * text beside it is using, at every point of the change, for free. The source
+ * is the same pure-alpha line art the site uses.
+ */
+.parish-brand__mark,
+.parish-icon {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask-image: url('/icons/logo-mark.png');
+  mask-image: url('/icons/logo-mark.png');
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.parish-icon {
+  width: 26px;
+  height: 22px;
+}
+
+.parish-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--theme-text);
+}
+
+.parish-brand__mark {
+  width: 74px;
+  height: 60px;
+}
+
+.parish-brand__name {
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.parish-brand__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--parish-brass-600);
+}
+
+html[data-theme='dark'] .parish-brand__eyebrow {
+  color: var(--parish-brass-300);
+}
+
+/////////////////////////////////////////////////
+// LOGIN
+/////////////////////////////////////////////////
+
+/*
+ * The login screen is the one part of this system someone outside the office
+ * might see, and by default it is a wordmark and a bare column of inputs
+ * floating in the middle of an empty page.
+ *
+ * The panel goes on `.template-minimal__wrap`, not on the form: the wrap is
+ * the common parent of the brand block and the form, so putting it there
+ * gathers the mark, the parish name and the fields into one object instead of
+ * leaving the wordmark stranded above a floating card. The brass rule along
+ * its top edge is the same one the root page at `/` uses, so arriving at one
+ * from the other is continuous.
+ */
+.login .template-minimal__wrap {
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--theme-border-color);
+  border-top: 2px solid var(--parish-brass-500);
+  box-shadow: var(--parish-panel-shadow);
+  padding: calc(var(--base) * 2) calc(var(--base) * 1.75);
+  max-width: 25rem;
+  width: 100%;
+
+  /*
+   * Inputs are recessed into the panel rather than raised off it. Everywhere
+   * else in the admin a field sits on the page and lifts one step to separate;
+   * here the panel has already taken that step, so a field that lifted again
+   * would land on the panel's own colour and vanish. Dropping back to the page
+   * tone gives the well its edge in both themes.
+   */
+  --theme-input-bg: #faf9f6;
+}
+
+html[data-theme='dark'] .login .template-minimal__wrap {
+  background: var(--color-base-800);
+  --theme-input-bg: var(--color-base-900);
+}
+
+.login__brand {
+  margin-bottom: calc(var(--base) * 1.4);
+}
+
+/*
+ * Payload gives the submit a symmetrical block margin, which leaves a band of
+ * dead space along the bottom of the panel once the panel has its own padding.
+ */
+.login .form-submit {
+  margin-bottom: 0;
+}
+
+/* The form's submit is the page's one action, so it spans the panel. */
+.login .form-submit .btn {
+  width: 100%;
+  margin-top: calc(var(--base) * 0.6);
+  margin-bottom: 0;
+}
+
+.login .form-submit .btn__content {
+  justify-content: center;
+}
+
+/*
+ * "Forgot password?" is the quiet alternative to the main action, so it takes
+ * the site's inline-link treatment — sea, warming to brass on hover — rather
+ * than sitting in body colour at the same weight as everything around it.
+ */
+.login__form > a {
+  align-self: flex-start;
+  font-size: 13px;
+  color: var(--theme-success-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login__form > a:hover {
+  color: var(--parish-brass-600);
+}
+
+/*
+ * Payload inverts the success scale for the dark theme, so a token has to be
+ * asked for by the position it will end up at, not the one it reads as:
+ * `--theme-success-700` resolves to `--color-success-300` here, the light sea
+ * this needs. Reusing the light theme's `-400` lands back on sea-600 and the
+ * link all but disappears into the panel.
+ */
+html[data-theme='dark'] .login__form > a {
+  color: var(--theme-success-700);
+}
+
+html[data-theme='dark'] .login__form > a:hover {
+  color: var(--parish-brass-300);
+}

@@ -49,6 +49,34 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+
+    /**
+     * Brand the panel as the parish's own tool rather than a stock Payload
+     * install. `custom.scss` carries the palette and type; these three hooks
+     * are the parts that have to be React.
+     *
+     * `providers` is where the two site faces are loaded: the generated
+     * `(payload)/layout.tsx` is marked do-not-modify, so there is no element
+     * there to hang a `next/font` class on, and a provider is the one
+     * extension point Payload renders on every admin route — the login screen
+     * included.
+     *
+     * Adding or moving any of these requires `npm run generate:importmap`;
+     * the panel resolves them through `admin/importMap.js`, not at runtime.
+     */
+    components: {
+      graphics: {
+        Icon: '/components/admin/Icon#Icon',
+        Logo: '/components/admin/Logo#Logo',
+      },
+      providers: ['/components/admin/Fonts#Fonts'],
+    },
+
+    meta: {
+      description: 'Uređivanje sadržaja mrežne stranice Župe sv. Marka Evanđelista, Neslanovac.',
+      icons: [{ type: 'image/png', rel: 'icon', url: '/icons/logo-mark.png' }],
+      titleSuffix: '— Župa sv. Marka',
+    },
   },
 
   collections: [

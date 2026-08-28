@@ -74,7 +74,17 @@ export default buildConfig({
 
     meta: {
       description: 'Uređivanje sadržaja mrežne stranice Župe sv. Marka Evanđelista, Neslanovac.',
-      icons: [{ type: 'image/png', rel: 'icon', url: '/icons/logo-mark.png' }],
+      /*
+       * Real tiles, not the stencil. `logo-mark.png` is near-black art on
+       * transparency — perfect as a mask, invisible as a favicon on the dark
+       * tab bar half the office runs. These are the same ink-ground icons the
+       * public site uses, written here by its `npm run generate:icons`.
+       */
+      icons: [
+        { type: 'image/png', rel: 'icon', sizes: '32x32', url: '/icons/favicon-32.png' },
+        { type: 'image/png', rel: 'icon', sizes: '192x192', url: '/icons/icon-192.png' },
+        { type: 'image/png', rel: 'apple-touch-icon', sizes: '180x180', url: '/icons/apple-icon.png' },
+      ],
       titleSuffix: '— Župa sv. Marka',
 
       /*

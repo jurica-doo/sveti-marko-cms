@@ -438,7 +438,9 @@ html[data-theme='dark'] .card {
  * dark theme the user can switch at runtime, and a coloured file would need
  * two variants and a swap. Masking makes the mark inherit whatever colour the
  * text beside it is using, at every point of the change, for free. The source
- * is the same pure-alpha line art the site uses.
+ * is the same stencil the site masks with — `brand/mark-dark.png` in
+ * `sveti-marko-web`, whose alpha channel follows the pencil strokes — written
+ * here by that repo's `npm run generate:icons` so the two cannot drift.
  */
 .parish-brand__mark,
 .parish-icon {
@@ -455,8 +457,8 @@ html[data-theme='dark'] .card {
 }
 
 .parish-icon {
-  width: 26px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .parish-brand {
@@ -468,8 +470,8 @@ html[data-theme='dark'] .card {
 }
 
 .parish-brand__mark {
-  width: 74px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
 }
 
 .parish-brand__name {

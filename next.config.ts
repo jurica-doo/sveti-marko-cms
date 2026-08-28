@@ -16,14 +16,31 @@ const devOrigins = (process.env.DEV_ORIGINS || '192.168.1.145')
 const nextConfig: NextConfig = {
   /*
    * Belt and braces alongside `src/app/robots.txt/route.ts`: a header travels
-   * with every response, including the JSON API, so the CMS cannot be indexed
-   * even if a URL is discovered without robots.txt being fetched first.
+   * with every response, including the JSON API and every uploaded file, so
+   * the CMS cannot be indexed even if a URL is discovered without robots.txt
+   * being fetched first.
+   *
+   * Each directive earns its place:
+   *   `noindex`      — never a search result.
+   *   `nofollow`     — do not queue anything linked from here for crawling.
+   *   `noimageindex` — the uploads this app serves are not indexable on their
+   *                    own either, which `noindex` alone does not cover.
+   *   `noarchive`    — no cached copy of an admin screen kept or served.
+   *   `nosnippet`    — nothing from here quoted in a result, cached or not.
+   *
+   * Deliberately unprefixed, so it binds every crawler rather than Googlebot
+   * alone.
    */
   async headers() {
     return [
       {
         source: '/(.*)',
-        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow, noimageindex, noarchive, nosnippet',
+          },
+        ],
       },
     ]
   },

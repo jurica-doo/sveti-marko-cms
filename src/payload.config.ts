@@ -76,6 +76,39 @@ export default buildConfig({
       description: 'Uređivanje sadržaja mrežne stranice Župe sv. Marka Evanđelista, Neslanovac.',
       icons: [{ type: 'image/png', rel: 'icon', url: '/icons/logo-mark.png' }],
       titleSuffix: '— Župa sv. Marka',
+
+      /*
+       * The admin panel is not a website and must never reach a search result.
+       * `admin.meta` is spread straight into the Next `Metadata` of every
+       * admin route (see `@payloadcms/next/utilities/meta`), so this is the
+       * only hook that reaches the generated `(payload)/layout.tsx` — which is
+       * marked do-not-modify.
+       *
+       * `noimageindex` matters here beyond the usual: with local storage the
+       * panel serves every upload off this origin, and without it those files
+       * are indexable on their own even when the page around them is not.
+       */
+      robots: {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+          index: false,
+          follow: false,
+          noimageindex: true,
+          'max-snippet': 0,
+          'max-image-preview': 'none',
+        },
+      },
+
+      /*
+       * Payload otherwise points every admin page's `og:image` at `/api/og`,
+       * which renders a fresh image per request. That is a public, uncached,
+       * parameterised endpoint on a system nobody should be sharing a link to
+       * in the first place — `off` both drops the tag and makes the route
+       * itself 404.
+       */
+      defaultOGImageType: 'off',
     },
   },
 

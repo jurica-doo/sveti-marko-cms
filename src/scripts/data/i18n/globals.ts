@@ -44,7 +44,7 @@ export const settings: Record<Locale, Doc> = {
       { label: 'O nama', href: '/o-nama/' },
       { label: 'Kontakt', href: '/kontakt/' },
     ],
-    headerCta: { label: 'Raspored misa', href: '/raspored/?otvori=liturgija' },
+    headerCta: { label: 'Raspored misa', href: '/#raspored' },
     footerIntro:
       'Župa sv. Marka Evanđelista na splitskom Neslanovcu, osnovana 1994. Hercegovačka 157, Split.',
     footerColumns: [
@@ -80,7 +80,7 @@ export const settings: Record<Locale, Doc> = {
       { label: 'About', href: '/o-nama/' },
       { label: 'Contact', href: '/kontakt/' },
     ],
-    headerCta: { label: 'Mass times', href: '/raspored/?otvori=liturgija' },
+    headerCta: { label: 'Mass times', href: '/#raspored' },
     footerIntro:
       'The Parish of St Mark the Evangelist in Neslanovac, Split, founded in 1994. Hercegovačka 157, Split.',
     footerColumns: [
@@ -116,7 +116,7 @@ export const settings: Record<Locale, Doc> = {
       { label: 'Chi siamo', href: '/o-nama/' },
       { label: 'Contatti', href: '/kontakt/' },
     ],
-    headerCta: { label: 'Orari delle Messe', href: '/raspored/?otvori=liturgija' },
+    headerCta: { label: 'Orari delle Messe', href: '/#raspored' },
     footerIntro:
       'La Parrocchia di San Marco Evangelista a Neslanovac, Spalato, fondata nel 1994. Hercegovačka 157, Spalato.',
     footerColumns: [
@@ -152,7 +152,7 @@ export const settings: Record<Locale, Doc> = {
       { label: 'O nas', href: '/o-nama/' },
       { label: 'Kontakt', href: '/kontakt/' },
     ],
-    headerCta: { label: 'Porządek Mszy', href: '/raspored/?otvori=liturgija' },
+    headerCta: { label: 'Porządek Mszy', href: '/#raspored' },
     footerIntro:
       'Parafia św. Marka Ewangelisty w Neslanovcu w Splicie, założona w 1994 roku. Hercegovačka 157, Split.',
     footerColumns: [

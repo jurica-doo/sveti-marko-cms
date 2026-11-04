@@ -48,3 +48,8 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Every environment file except the committed template — .env.production holds
+# the production database password and storage keys.
+.env.*
+!.env.example

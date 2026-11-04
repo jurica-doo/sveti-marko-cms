@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { isAdminOrEditor } from '../access'
+import { validateHttpUrl } from '../fields/url'
 
 export const UsefulLinks: CollectionConfig = {
   slug: 'useful-links',
@@ -20,7 +21,13 @@ export const UsefulLinks: CollectionConfig = {
   defaultSort: 'order',
   fields: [
     { name: 'title', type: 'text', required: true, label: 'Naziv', localized: true },
-    { name: 'url', type: 'text', required: true, label: 'Poveznica (URL)' },
+    {
+      name: 'url',
+      type: 'text',
+      required: true,
+      label: 'Poveznica (URL)',
+      validate: validateHttpUrl,
+    },
     { name: 'description', type: 'textarea', label: 'Kratki opis', localized: true },
     {
       name: 'group',

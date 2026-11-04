@@ -20,6 +20,7 @@ import { SchedulePage } from './globals/SchedulePage'
 import { NewsPage } from './globals/NewsPage'
 import { AboutPage } from './globals/AboutPage'
 import { ContactPage } from './globals/ContactPage'
+import { PrivacyPage } from './globals/PrivacyPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -132,7 +133,35 @@ export default buildConfig({
     UsefulLinks,
   ],
 
-  globals: [Settings, Schedule, HomePage, SchedulePage, NewsPage, AboutPage, ContactPage],
+  globals: [
+    Settings,
+    Schedule,
+    HomePage,
+    SchedulePage,
+    NewsPage,
+    AboutPage,
+    ContactPage,
+    PrivacyPage,
+  ],
+
+  /*
+   * Nothing uses GraphQL: the website reads the REST API and the admin panel
+   * talks to Payload directly. Switched off, it is one fewer public endpoint
+   * (and query language) to keep an eye on.
+   */
+  graphQL: {
+    disable: true,
+  },
+
+  /*
+   * A ceiling on any one uploaded file. Generous enough for a phone video of
+   * a parish event, small enough that an upload cannot exhaust the function.
+   */
+  upload: {
+    limits: {
+      fileSize: 100 * 1024 * 1024,
+    },
+  },
 
   cors: corsOrigins,
   csrf: csrfOrigins,

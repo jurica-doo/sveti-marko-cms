@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
    * Deliberately unprefixed, so it binds every crawler rather than Googlebot
    * alone.
    */
+  poweredByHeader: false,
   async headers() {
     return [
       {
@@ -39,6 +40,36 @@ const nextConfig: NextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow, noimageindex, noarchive, nosnippet',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          /*
+           * Nobody should be able to load the admin panel inside a frame on
+           * another site and trick an editor into clicking through it
+           * (clickjacking). Only framing is restricted: a full CSP here would
+           * fight Payload's own admin scripts and styles.
+           */
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'none'",
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()',
           },
         ],
       },

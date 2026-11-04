@@ -21,6 +21,7 @@ import {
   homePage,
   LOCALES,
   newsPage,
+  privacyPage,
   schedule,
   schedulePage,
   settings,
@@ -132,6 +133,7 @@ const seed = async () => {
     'news-page': newsPage,
     'about-page': aboutPage(imageIds),
     'contact-page': contactPage(imageIds),
+    'privacy-page': privacyPage,
   } as const
 
   for (const locale of LOCALES) {

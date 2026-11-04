@@ -1,11 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import type { User } from '../payload-types'
-
-const isAdmin = (req: any) => {
-  const user = req.user as User | null
-  return user?.role?.toLowerCase() === 'admin'
-}
+import { isAdmin } from '../access'
 
 export const MediaImages: CollectionConfig = {
   slug: 'media-images',
@@ -14,12 +9,14 @@ export const MediaImages: CollectionConfig = {
   },
   access: {
     read: () => true,
-    create: ({ req }) => isAdmin(req),
-    update: ({ req }) => isAdmin(req),
-    delete: ({ req }) => isAdmin(req),
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   upload: {
-    mimeTypes: ['image/*'],
+    // Listed formats only. `image/*` also admitted SVG, which can carry
+    // script — and the site serves uploads from its own domain.
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif'],
   },
   fields: [
     {

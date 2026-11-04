@@ -45,3 +45,16 @@ export const richText = (...paragraphs: string[]): Lexical => ({
     })),
   },
 })
+
+/**
+ * Like `richText`, but a `{ heading }` entry becomes an `h2` — for longer
+ * documents split into sections, such as the privacy notice.
+ */
+export const richDocument = (...blocks: (string | { heading: string })[]): Lexical => {
+  const doc = richText(...blocks.map((block) => (typeof block === 'string' ? block : block.heading)))
+  doc.root.children = doc.root.children.map((node, index) => {
+    const block = blocks[index]
+    return typeof block === 'string' ? node : { ...node, type: 'heading', tag: 'h2' }
+  })
+  return doc
+}

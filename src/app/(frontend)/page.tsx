@@ -1,4 +1,5 @@
 import { headers as getHeaders } from 'next/headers.js'
+import { unstable_rethrow } from 'next/navigation'
 import { getPayload } from 'payload'
 
 import config from '@/payload.config'
@@ -30,6 +31,9 @@ export default async function HomePage() {
     const auth = await payload.auth({ headers })
     user = auth.user ?? undefined
   } catch (error) {
+    // `headers()` signals "this page is dynamic" by throwing during the build;
+    // that signal belongs to Next.js, not to this error message.
+    unstable_rethrow(error)
     initError = error instanceof Error ? error.message : String(error)
     console.error('Payload failed to initialize:', error)
   }

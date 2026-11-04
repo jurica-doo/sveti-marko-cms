@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { isAdminOrEditor } from '../access'
+import { validateHttpUrl } from '../fields/url'
 
 export const ContactPage: GlobalConfig = {
   slug: 'contact-page',
@@ -66,12 +67,14 @@ export const ContactPage: GlobalConfig = {
                   name: 'embedUrl',
                   type: 'text',
                   label: 'Google Maps embed URL',
+                  validate: validateHttpUrl,
                   admin: { description: 'Google Maps → Dijeli → Ugradi kartu → src iz <iframe>.' },
                 },
                 {
                   name: 'directionsUrl',
                   type: 'text',
                   label: 'Poveznica za upute (Google Maps)',
+                  validate: validateHttpUrl,
                 },
               ],
             },

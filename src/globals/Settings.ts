@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { isAdminOrEditor } from '../access'
+import { validateHttpUrl } from '../fields/url'
 
 export const Settings: GlobalConfig = {
   slug: 'settings',
@@ -110,7 +111,7 @@ export const Settings: GlobalConfig = {
                     { label: 'WhatsApp', value: 'whatsapp' },
                   ],
                 },
-                { name: 'url', type: 'text', required: true, label: 'URL' },
+                { name: 'url', type: 'text', required: true, label: 'URL', validate: validateHttpUrl },
               ],
             },
           ],

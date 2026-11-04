@@ -10,7 +10,7 @@
  * Non-localized fields (images, hrefs, checkboxes) are included in every
  * locale too, so whichever locale is written last leaves them identical.
  */
-import { richText } from '../rich-text'
+import { richDocument, richText } from '../rich-text'
 
 export type Locale = 'hr' | 'en' | 'it' | 'pl'
 export const LOCALES: Locale[] = ['hr', 'en', 'it', 'pl']
@@ -1048,3 +1048,123 @@ export const schedulePage = (img: ImageIds): Record<Locale, Doc> => ({
       'Porządek Mszy, spowiedzi i nabożeństw oraz katecheza, próby chórów i wspólnoty parafialne w Parafii św. Marka w Neslanovcu w Splicie.',
   },
 })
+
+/* -------------------------------------------------------- privacy page --- */
+
+/*
+ * A factual draft: every statement describes what the website verifiably does
+ * (see the privacy audit) — no analytics, no tracking cookies, the contact form
+ * via Resend, WhatsApp on request, the map only on click, hosting logs. Points
+ * that are the parish's own decision (how long messages are kept, the
+ * supervisory authority under the Church's data-protection rules) are written
+ * generically and must be confirmed by the parish before launch.
+ */
+const privacyBody = {
+  hr: richDocument(
+    { heading: 'Tko obrađuje podatke' },
+    'Voditelj obrade je Župa sv. Marka Evanđelista, Hercegovačka 157, 21000 Split, telefon (021) 367-422. Za sva pitanja o vašim podacima obratite se župnom uredu.',
+    { heading: 'Što ova stranica ne radi' },
+    'Stranica ne koristi kolačiće za praćenje ni alate za analitiku, ne prikazuje oglase i ne bilježi kako se krećete po njoj. Sama stranica ne postavlja nikakve kolačiće.',
+    { heading: 'Kada nam se sami javite' },
+    'E-mail obrazac: prikupljamo ime i prezime, e-mail adresu i poruku koju napišete. Koristimo ih isključivo kako bismo vam odgovorili. Poruka se župnom uredu dostavlja e-poštom putem usluge Resend.',
+    'WhatsApp: odaberete li WhatsApp, vaša se poruka otvara u aplikaciji WhatsApp, a daljnja komunikacija odvija se ondje, prema pravilima privatnosti WhatsAppa.',
+    { heading: 'Karta' },
+    'Karta na stranici Kontakt ne učitava se sama. Tek kad je odaberete prikazati, učitava se s usluge Google Maps; tada Google prima vašu IP adresu i može postaviti vlastite kolačiće prema svojim pravilima privatnosti.',
+    { heading: 'Tehnički podaci' },
+    'Kao i kod svake mrežne stranice, poslužitelji koji je isporučuju (Vercel i Supabase) pri posjetu bilježe tehničke podatke poput IP adrese i vremena pristupa, radi sigurnosti i ispravnog rada stranice.',
+    { heading: 'Koliko dugo čuvamo podatke' },
+    'Poruke koje nam pošaljete čuvamo onoliko dugo koliko je potrebno da vam odgovorimo i nastavimo započetu komunikaciju.',
+    { heading: 'Vaša prava' },
+    'Možete zatražiti uvid u svoje podatke, njihov ispravak ili brisanje, javljanjem župnom uredu. Imate i pravo podnijeti pritužbu nadležnom nadzornom tijelu za zaštitu osobnih podataka.',
+  ),
+  en: richDocument(
+    { heading: 'Who processes your data' },
+    'The controller is the Parish of St Mark the Evangelist, Hercegovačka 157, 21000 Split, Croatia, phone +385 21 367 422. For any question about your data, please contact the parish office.',
+    { heading: 'What this website does not do' },
+    'The website uses no tracking cookies or analytics tools, shows no advertising and does not record how you move around it. The website itself sets no cookies.',
+    { heading: 'When you contact us' },
+    'E-mail form: we collect your name, e-mail address and the message you write, and use them only to reply to you. The message is delivered to the parish office by e-mail through the Resend service.',
+    'WhatsApp: if you choose WhatsApp, your message opens in the WhatsApp app and the conversation continues there, under WhatsApp\'s privacy policy.',
+    { heading: 'The map' },
+    'The map on the Contact page does not load by itself. Only when you choose to show it is it loaded from Google Maps; Google then receives your IP address and may set its own cookies under its privacy policy.',
+    { heading: 'Technical data' },
+    'As with any website, the servers that deliver it (Vercel and Supabase) record technical data such as your IP address and the time of access, for security and to keep the website running.',
+    { heading: 'How long we keep data' },
+    'We keep the messages you send us for as long as needed to reply to you and continue the conversation.',
+    { heading: 'Your rights' },
+    'You can ask to see, correct or delete your data by contacting the parish office. You also have the right to lodge a complaint with the competent data protection supervisory authority.',
+  ),
+  it: richDocument(
+    { heading: 'Chi tratta i dati' },
+    'Il titolare del trattamento è la Parrocchia di San Marco Evangelista, Hercegovačka 157, 21000 Spalato, Croazia, telefono +385 21 367 422. Per qualsiasi domanda sui vostri dati rivolgetevi all\'ufficio parrocchiale.',
+    { heading: 'Che cosa questo sito non fa' },
+    'Il sito non utilizza cookie di tracciamento né strumenti di analisi, non mostra pubblicità e non registra come vi muovete al suo interno. Il sito stesso non imposta alcun cookie.',
+    { heading: 'Quando ci contattate' },
+    'Modulo e-mail: raccogliamo nome e cognome, indirizzo e-mail e il messaggio che scrivete, e li usiamo solo per rispondervi. Il messaggio viene recapitato all\'ufficio parrocchiale via e-mail tramite il servizio Resend.',
+    'WhatsApp: se scegliete WhatsApp, il vostro messaggio si apre nell\'app WhatsApp e la conversazione prosegue lì, secondo l\'informativa sulla privacy di WhatsApp.',
+    { heading: 'La mappa' },
+    'La mappa nella pagina Contatti non si carica da sola. Solo quando scegliete di visualizzarla viene caricata da Google Maps; Google riceve allora il vostro indirizzo IP e può impostare propri cookie secondo la sua informativa sulla privacy.',
+    { heading: 'Dati tecnici' },
+    'Come per qualsiasi sito web, i server che lo distribuiscono (Vercel e Supabase) registrano dati tecnici come l\'indirizzo IP e l\'ora di accesso, per la sicurezza e il corretto funzionamento del sito.',
+    { heading: 'Per quanto tempo conserviamo i dati' },
+    'Conserviamo i messaggi che ci inviate per il tempo necessario a rispondervi e a proseguire la comunicazione.',
+    { heading: 'I vostri diritti' },
+    'Potete chiedere di accedere ai vostri dati, di correggerli o di cancellarli rivolgendovi all\'ufficio parrocchiale. Avete inoltre il diritto di proporre reclamo all\'autorità di controllo competente per la protezione dei dati.',
+  ),
+  pl: richDocument(
+    { heading: 'Kto przetwarza dane' },
+    'Administratorem danych jest Parafia św. Marka Ewangelisty, Hercegovačka 157, 21000 Split, Chorwacja, telefon +385 21 367 422. W sprawie swoich danych prosimy kontaktować się z kancelarią parafialną.',
+    { heading: 'Czego ta strona nie robi' },
+    'Strona nie używa plików cookie śledzących ani narzędzi analitycznych, nie wyświetla reklam i nie rejestruje, jak się po niej poruszasz. Sama strona nie zapisuje żadnych plików cookie.',
+    { heading: 'Gdy się z nami kontaktujesz' },
+    'Formularz e-mail: zbieramy imię i nazwisko, adres e-mail oraz treść wiadomości i wykorzystujemy je wyłącznie po to, by odpowiedzieć. Wiadomość trafia do kancelarii parafialnej e-mailem za pośrednictwem usługi Resend.',
+    'WhatsApp: jeśli wybierzesz WhatsApp, Twoja wiadomość otworzy się w aplikacji WhatsApp, a dalsza rozmowa toczy się tam, zgodnie z polityką prywatności WhatsApp.',
+    { heading: 'Mapa' },
+    'Mapa na stronie Kontakt nie ładuje się sama. Dopiero gdy zdecydujesz się ją wyświetlić, ładuje się z Map Google; Google otrzymuje wtedy Twój adres IP i może zapisać własne pliki cookie zgodnie ze swoją polityką prywatności.',
+    { heading: 'Dane techniczne' },
+    'Jak w przypadku każdej strony internetowej, serwery, które ją udostępniają (Vercel i Supabase), rejestrują dane techniczne, takie jak adres IP i czas dostępu, ze względów bezpieczeństwa i dla prawidłowego działania strony.',
+    { heading: 'Jak długo przechowujemy dane' },
+    'Wiadomości, które do nas wysyłasz, przechowujemy tak długo, jak to konieczne, by odpowiedzieć i kontynuować rozmowę.',
+    { heading: 'Twoje prawa' },
+    'Możesz zażądać dostępu do swoich danych, ich sprostowania lub usunięcia, kontaktując się z kancelarią parafialną. Masz też prawo wnieść skargę do właściwego organu nadzorczego ds. ochrony danych osobowych.',
+  ),
+}
+
+export const privacyPage: Record<Locale, Doc> = {
+  hr: {
+    eyebrow: 'Privatnost',
+    title: 'Zaštita osobnih podataka',
+    intro: 'Kako ova mrežna stranica postupa s vašim podacima — kratko i bez sitnih slova.',
+    body: privacyBody.hr,
+    updatedAtLabel: '4. studenoga 2026.',
+    metaTitle: 'Zaštita osobnih podataka — Župa sv. Marka, Neslanovac',
+    metaDescription: 'Koje podatke prikuplja mrežna stranica župe sv. Marka, čemu služe i kome se prosljeđuju.',
+  },
+  en: {
+    eyebrow: 'Privacy',
+    title: 'Privacy notice',
+    intro: 'How this website handles your data — short and without the small print.',
+    body: privacyBody.en,
+    updatedAtLabel: '4 November 2026',
+    metaTitle: 'Privacy notice — St Mark’s Parish, Neslanovac',
+    metaDescription: 'What data the St Mark’s Parish website collects, what it is used for and who it is passed to.',
+  },
+  it: {
+    eyebrow: 'Privacy',
+    title: 'Informativa sulla privacy',
+    intro: 'Come questo sito tratta i vostri dati, in breve e senza clausole nascoste.',
+    body: privacyBody.it,
+    updatedAtLabel: '4 novembre 2026',
+    metaTitle: 'Informativa sulla privacy — Parrocchia di San Marco, Neslanovac',
+    metaDescription: 'Quali dati raccoglie il sito della Parrocchia di San Marco, a che cosa servono e a chi vengono trasmessi.',
+  },
+  pl: {
+    eyebrow: 'Prywatność',
+    title: 'Ochrona danych osobowych',
+    intro: 'Jak ta strona postępuje z Twoimi danymi — krótko i bez drobnego druku.',
+    body: privacyBody.pl,
+    updatedAtLabel: '4 listopada 2026',
+    metaTitle: 'Ochrona danych osobowych — Parafia św. Marka, Neslanovac',
+    metaDescription: 'Jakie dane zbiera strona Parafii św. Marka, do czego służą i komu są przekazywane.',
+  },
+}

@@ -197,9 +197,14 @@ export default buildConfig({
    * client for its whole lifetime and runs out at `pool_size: 15`, which fails
    * `payload.init()` and 500s every route including the REST API.
    *
-   * `max: 1` because an instance serves one request at a time; anything higher
-   * is idle connections held against that shared ceiling. Timeouts are short so
-   * a saturated pooler surfaces as a fast error rather than a 30s hang.
+   * The pool must allow more than one connection. Payload holds one for the
+   * length of a transaction and opens another for queries made meanwhile, so
+   * with `max: 1` the second waits for the first forever — every query fails
+   * with "timeout exceeded when trying to connect" (this took the production
+   * CMS down once; `DATABASE_POOL_MAX=1` reproduces it locally). The default of
+   * 10 is safe: the transaction pooler hands connections back after each
+   * query, so idle client slots cost Supabase nothing. Timeouts are short so a
+   * saturated pooler surfaces as a fast error rather than a 30s hang.
    */
   db: postgresAdapter({
     schemaName: 'payload',

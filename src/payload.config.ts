@@ -16,6 +16,7 @@ import { UsefulLinks } from './collections/UsefulLinks'
 import { Settings } from './globals/Settings'
 import { Schedule } from './globals/Schedule'
 import { HomePage } from './globals/HomePage'
+import { SchedulePage } from './globals/SchedulePage'
 import { NewsPage } from './globals/NewsPage'
 import { AboutPage } from './globals/AboutPage'
 import { ContactPage } from './globals/ContactPage'
@@ -131,7 +132,7 @@ export default buildConfig({
     UsefulLinks,
   ],
 
-  globals: [Settings, Schedule, HomePage, NewsPage, AboutPage, ContactPage],
+  globals: [Settings, Schedule, HomePage, SchedulePage, NewsPage, AboutPage, ContactPage],
 
   cors: corsOrigins,
   csrf: csrfOrigins,

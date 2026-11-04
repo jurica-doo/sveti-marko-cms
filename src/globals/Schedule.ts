@@ -4,15 +4,16 @@ import { isAdminOrEditor } from '../access'
 
 /**
  * Single source of truth for every time the parish publishes: masses,
- * confessions, adoration and office hours. Rendered in the hero overlay,
- * on the home page and on the contact page.
+ * confessions, adoration, parish activities and office hours. Rendered in the
+ * hero overlay on the home page, on the Raspored page and on the contact page.
  */
 export const Schedule: GlobalConfig = {
   slug: 'schedule',
-  label: 'Raspored (mise, ispovijed, ured)',
+  label: 'Raspored (mise, aktivnosti, ured)',
   admin: {
     group: 'Župa',
-    description: 'Mijenja se na jednom mjestu — prikazuje se na naslovnici i na kontaktu.',
+    description:
+      'Mijenja se na jednom mjestu — prikazuje se na naslovnici, na stranici Raspored i na kontaktu.',
   },
   access: {
     read: () => true,
@@ -164,6 +165,76 @@ export const Schedule: GlobalConfig = {
                     },
                     { name: 'note', type: 'text', label: 'Napomena', localized: true },
                   ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Župne aktivnosti',
+          description:
+            'Vjeronauk, zborovi i župne zajednice — prikazuje se na stranici Raspored, svaka skupina u svom odjeljku.',
+          fields: [
+            {
+              name: 'activities',
+              type: 'array',
+              label: 'Aktivnosti',
+              labels: { singular: 'Aktivnost', plural: 'Aktivnosti' },
+              admin: { initCollapsed: false },
+              fields: [
+                {
+                  name: 'group',
+                  type: 'select',
+                  required: true,
+                  label: 'Skupina',
+                  defaultValue: 'vjeronauk',
+                  options: [
+                    { label: 'Vjeronauk', value: 'vjeronauk' },
+                    { label: 'Zborovi i glazba', value: 'zborovi' },
+                    { label: 'Župne zajednice', value: 'zajednice' },
+                  ],
+                },
+                {
+                  name: 'title',
+                  type: 'text',
+                  required: true,
+                  label: 'Naziv',
+                  localized: true,
+                  admin: { description: 'npr. Vjeronauk za krizmanike' },
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'day',
+                      type: 'text',
+                      label: 'Dan',
+                      localized: true,
+                      admin: { description: 'npr. Utorkom', width: '50%' },
+                    },
+                    {
+                      name: 'times',
+                      type: 'text',
+                      label: 'Vrijeme',
+                      localized: true,
+                      admin: { description: 'npr. 17:00 – 18:00', width: '50%' },
+                    },
+                  ],
+                },
+                {
+                  name: 'place',
+                  type: 'text',
+                  label: 'Mjesto',
+                  localized: true,
+                  admin: { description: 'npr. Župna dvorana' },
+                },
+                { name: 'note', type: 'text', label: 'Napomena', localized: true },
+                {
+                  name: 'active',
+                  type: 'checkbox',
+                  label: 'Prikaži',
+                  defaultValue: true,
+                  admin: { description: 'Isključite za aktivnosti koje stanu preko ljeta.' },
                 },
               ],
             },

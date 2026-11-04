@@ -34,21 +34,6 @@ export const Settings: GlobalConfig = {
           ],
         },
         {
-          label: 'Traka obavijesti',
-          fields: [
-            {
-              name: 'announcement',
-              type: 'group',
-              label: 'Traka na vrhu stranice',
-              fields: [
-                { name: 'enabled', type: 'checkbox', label: 'Prikaži traku', defaultValue: false },
-                { name: 'text', type: 'text', label: 'Tekst', localized: true },
-                { name: 'href', type: 'text', label: 'Poveznica (nije obavezno)' },
-              ],
-            },
-          ],
-        },
-        {
           label: 'Izbornik',
           fields: [
             {

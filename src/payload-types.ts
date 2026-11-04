@@ -100,6 +100,7 @@ export interface Config {
     settings: Setting;
     schedule: Schedule;
     'home-page': HomePage;
+    'schedule-page': SchedulePage;
     'news-page': NewsPage;
     'about-page': AboutPage;
     'contact-page': ContactPage;
@@ -108,6 +109,7 @@ export interface Config {
     settings: SettingsSelect<false> | SettingsSelect<true>;
     schedule: ScheduleSelect<false> | ScheduleSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'schedule-page': SchedulePageSelect<false> | SchedulePageSelect<true>;
     'news-page': NewsPageSelect<false> | NewsPageSelect<true>;
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
@@ -557,11 +559,6 @@ export interface Setting {
   tagline?: string | null;
   logo?: (number | null) | MediaImage;
   diocese?: string | null;
-  announcement?: {
-    enabled?: boolean | null;
-    text?: string | null;
-    href?: string | null;
-  };
   navigation?:
     | {
         label: string;
@@ -602,7 +599,7 @@ export interface Setting {
   createdAt?: string | null;
 }
 /**
- * Mijenja se na jednom mjestu — prikazuje se na naslovnici i na kontaktu.
+ * Mijenja se na jednom mjestu — prikazuje se na naslovnici, na stranici Raspored i na kontaktu.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "schedule".
@@ -671,6 +668,33 @@ export interface Schedule {
               id?: string | null;
             }[]
           | null;
+        id?: string | null;
+      }[]
+    | null;
+  activities?:
+    | {
+        group: 'vjeronauk' | 'zborovi' | 'zajednice';
+        /**
+         * npr. Vjeronauk za krizmanike
+         */
+        title: string;
+        /**
+         * npr. Utorkom
+         */
+        day?: string | null;
+        /**
+         * npr. 17:00 – 18:00
+         */
+        times?: string | null;
+        /**
+         * npr. Župna dvorana
+         */
+        place?: string | null;
+        note?: string | null;
+        /**
+         * Isključite za aktivnosti koje stanu preko ljeta.
+         */
+        active?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -756,6 +780,45 @@ export interface HomePage {
     eyebrow?: string | null;
     title?: string | null;
     intro?: string | null;
+  };
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Tekstovi na stranici Raspored. Same termine uređujete u globalu „Raspored (mise, aktivnosti, ured)”.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedule-page".
+ */
+export interface SchedulePage {
+  id: number;
+  eyebrow?: string | null;
+  title: string;
+  intro?: string | null;
+  heroImage?: (number | null) | MediaImage;
+  liturgy?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    intro?: string | null;
+  };
+  /**
+   * Naslov i kratki uvod za svaku skupinu aktivnosti.
+   */
+  groups?: {
+    vjeronauk?: {
+      title?: string | null;
+      intro?: string | null;
+    };
+    zborovi?: {
+      title?: string | null;
+      intro?: string | null;
+    };
+    zajednice?: {
+      title?: string | null;
+      intro?: string | null;
+    };
   };
   metaTitle?: string | null;
   metaDescription?: string | null;
@@ -905,13 +968,6 @@ export interface SettingsSelect<T extends boolean = true> {
   tagline?: T;
   logo?: T;
   diocese?: T;
-  announcement?:
-    | T
-    | {
-        enabled?: T;
-        text?: T;
-        href?: T;
-      };
   navigation?:
     | T
     | {
@@ -1000,6 +1056,18 @@ export interface ScheduleSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  activities?:
+    | T
+    | {
+        group?: T;
+        title?: T;
+        day?: T;
+        times?: T;
+        place?: T;
+        note?: T;
+        active?: T;
+        id?: T;
+      };
   officeHours?:
     | T
     | {
@@ -1085,6 +1153,50 @@ export interface HomePageSelect<T extends boolean = true> {
         eyebrow?: T;
         title?: T;
         intro?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedule-page_select".
+ */
+export interface SchedulePageSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  intro?: T;
+  heroImage?: T;
+  liturgy?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+      };
+  groups?:
+    | T
+    | {
+        vjeronauk?:
+          | T
+          | {
+              title?: T;
+              intro?: T;
+            };
+        zborovi?:
+          | T
+          | {
+              title?: T;
+              intro?: T;
+            };
+        zajednice?:
+          | T
+          | {
+              title?: T;
+              intro?: T;
+            };
       };
   metaTitle?: T;
   metaDescription?: T;

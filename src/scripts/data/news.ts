@@ -1,13 +1,9 @@
 /**
- * Example parish news.
+ * Parish news, from events reported publicly about the parish.
  *
- * These exist so the news listing, the home page selection and the category
- * filter all have enough to render against. They are written as ordinary parish
- * announcements — nothing here is a real event, and the office is meant to
- * replace or delete them before the site goes live.
- *
- * Times and office hours match the `schedule` global on purpose, so the example
- * copy never contradicts what the rest of the site shows.
+ * Each item is retold in our own words from the source named in its last
+ * paragraph (IKA — Informativna katolička agencija), not copied. Photos are
+ * IKA's, credited in each image's caption.
  *
  * Shared by `seed.ts` and any one-off insert script, so the two can never drift
  * apart.
@@ -15,162 +11,74 @@
 import { richText } from './rich-text'
 
 type CategoryIds = Record<string, number | string>
+type ImageIds = Record<string, number | string>
 
-export const exampleNews = (categoryIds: CategoryIds) => [
+export const parishNews = (categoryIds: CategoryIds, images: ImageIds) => [
   {
-    title: 'Blagoslov obitelji i domova',
-    slug: 'blagoslov-obitelji-i-domova',
-    publishedAt: new Date('2026-01-07T09:00:00.000Z').toISOString(),
-    category: categoryIds['Obavijesti'],
-    featured: false,
-    excerpt:
-      'Kroz siječanj svećenik obilazi domove župljana. Raspored po ulicama objavljen je na oglasnoj ploči i najavljuje se nedjeljom na misama.',
-    content: richText(
-      'U vremenu po Bogojavljenju započinje blagoslov obitelji i domova. Svećenik obilazi domove župljana po ulicama, a raspored se objavljuje na oglasnoj ploči uz crkvu.',
-      'Obitelji koje toga dana nisu kod kuće mogu se javiti u župni ured i dogovoriti drugi termin.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Župni zbor poziva nove pjevače',
-    slug: 'zupni-zbor-poziva-nove-pjevace',
-    publishedAt: new Date('2026-02-05T09:00:00.000Z').toISOString(),
-    category: categoryIds['Zajednice'],
-    featured: false,
-    excerpt:
-      'Probe su četvrtkom nakon večernje mise u župnoj dvorani. Dobrodošli su svi koji rado pjevaju, bez obzira na glazbeno predznanje.',
-    content: richText(
-      'Župni zbor poziva nove članove. Probe se održavaju četvrtkom nakon večernje svete mise u župnoj dvorani uz crkvu.',
-      'Nije potrebno glazbeno predznanje ni poznavanje nota — dovoljna je volja i redovitost dolaska. Zbor pjeva na nedjeljnoj misi u 11:00 te na većim blagdanima.',
-      'Zainteresirani se mogu javiti voditelju zbora nakon mise ili u župnom uredu.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Korizma: križni put petkom prije mise',
-    slug: 'korizma-krizni-put-petkom',
-    publishedAt: new Date('2026-02-18T09:00:00.000Z').toISOString(),
-    category: categoryIds['Obavijesti'],
-    featured: false,
-    excerpt:
-      'Kroz korizmu pobožnost križnoga puta molimo petkom u 18:30, neposredno prije večernje svete mise.',
-    content: richText(
-      'Čistom srijedom započinje korizmeno vrijeme. Kroz cijelu korizmu pobožnost križnoga puta molimo petkom u 18:30 sati, neposredno prije večernje svete mise.',
-      'Pojedine postaje predvode župne zajednice — ministranti, zbor i vjeroučenici.',
-      'Prilika za ispovijed je kao i inače, pola sata prije svake večernje mise.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Uskrsno trodnevlje — raspored obreda',
-    slug: 'uskrsno-trodnevlje-raspored-obreda',
-    publishedAt: new Date('2026-04-02T09:00:00.000Z').toISOString(),
-    category: categoryIds['Slavlja'],
-    featured: false,
-    excerpt:
-      'Raspored obreda Velikoga četvrtka, Velikoga petka i Vazmenoga bdijenja objavljen je na oglasnoj ploči i u župnim obavijestima.',
-    content: richText(
-      'Uskrsno trodnevlje vrhunac je liturgijske godine. Raspored obreda za Veliki četvrtak, Veliki petak i Vazmeno bdijenje objavljen je na oglasnoj ploči uz crkvu.',
-      'Na Veliki petak nema svete mise; toga je dana strogi post i nemrs.',
-      'Prilika za ispovijed pred Uskrs bit će produžena, a termini se najavljuju nedjeljom na misama.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Prva sveta pričest',
-    slug: 'prva-sveta-pricest',
-    publishedAt: new Date('2026-05-10T09:00:00.000Z').toISOString(),
-    category: categoryIds['Slavlja'],
-    featured: false,
-    excerpt:
-      'Prvopričesnici naše župe pristupaju prvoj svetoj pričesti na nedjeljnoj misi u 11:00, nakon višemjesečne priprave.',
-    content: richText(
-      'Nakon višemjesečne priprave na župnom vjeronauku, prvopričesnici naše župe pristupaju prvoj svetoj pričesti na nedjeljnoj svetoj misi u 11:00 sati.',
-      'Ispovijed za prvopričesnike i njihove roditelje je u subotu prije slavlja, a proba u župnoj crkvi prema dogovoru s vjeroučiteljem.',
-      'Molimo župnu zajednicu da djecu i njihove obitelji prati molitvom.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Sveta potvrda u našoj župi',
-    slug: 'sveta-potvrda-u-nasoj-zupi',
-    publishedAt: new Date('2026-06-01T09:00:00.000Z').toISOString(),
-    category: categoryIds['Slavlja'],
-    featured: false,
-    excerpt:
-      'Krizmanici primaju sakrament svete potvrde na svečanoj misi. Ispovijed za krizmanike i kumove je dan ranije.',
-    content: richText(
-      'Krizmanici naše župe primaju sakrament svete potvrde na svečanoj svetoj misi u župnoj crkvi.',
-      'Ispovijed za krizmanike, kumove i roditelje je dan ranije, prije večernje mise.',
-      'Kumovi trebaju donijeti potvrdu o sposobnosti za kumstvo iz svoje župe. Sve ostalo dogovara se u župnom uredu.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Hodočašće u Mariju Bistricu — prijave u uredu',
-    slug: 'hodocasce-u-mariju-bistricu',
-    publishedAt: new Date('2026-07-28T09:00:00.000Z').toISOString(),
-    category: categoryIds['Zajednice'],
-    featured: false,
-    excerpt:
-      'Župa organizira jednodnevno hodočašće u nacionalno svetište Majke Božje Bistričke. Broj mjesta je ograničen, prijave u župnom uredu.',
-    content: richText(
-      'Župa organizira jednodnevno hodočašće u nacionalno svetište Majke Božje Bistričke u Mariji Bistrici.',
-      'Polazak je ispred crkve u ranim jutarnjim satima, a povratak isti dan u večernjim satima. U svetištu je predviđena zajednička sveta misa i vrijeme za osobnu molitvu.',
-      'Broj mjesta je ograničen. Prijave i uplate primaju se u župnom uredu u radno vrijeme.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Vjeronauk i susreti ministranata kroz tjedan',
-    slug: 'vjeronauk-i-susreti-ministranata',
-    publishedAt: new Date('2026-03-02T09:00:00.000Z').toISOString(),
-    category: categoryIds['Zajednice'],
-    featured: false,
-    excerpt:
-      'Župni vjeronauk za prvopričesnike i krizmanike te susreti ministranata održavaju se u župnoj dvorani.',
-    content: richText(
-      'Župni vjeronauk za prvopričesnike i krizmanike održava se tijekom tjedna u župnoj dvorani uz crkvu. Rasporedi po skupinama objavljeni su na oglasnoj ploči.',
-      'Susreti ministranata su subotom prije večernje mise. Pozivamo dječake i djevojčice koji žele služiti kod oltara da se jave župniku.',
-    ),
-    author: 'Župni ured',
-    _status: 'published',
-  },
-  {
-    title: 'Blagdan sv. Marka Evanđelista — župno slavlje',
-    slug: 'blagdan-sv-marka-zupno-slavlje',
-    publishedAt: new Date('2026-04-20T09:00:00.000Z').toISOString(),
+    title: 'Blagdan sv. Marka i 30 godina župe',
+    slug: 'blagdan-sv-marka-i-30-godina-zupe',
+    publishedAt: new Date('2025-04-25T18:00:00.000Z').toISOString(),
     category: categoryIds['Slavlja'],
     featured: true,
+    coverImage: images.procesija,
     excerpt:
-      'Na blagdan našega nebeskog zaštitnika, 25. travnja, slavimo svetu misu u 19:00, a nakon mise druženje ispred crkve.',
+      'Na blagdan svoga zaštitnika župa je proslavila i trideset godina postojanja. Misu je predvodio nadbiskup Zdenko Križić, koji je blagoslovio i novi kip sv. Marka.',
     content: richText(
-      'Na blagdan sv. Marka Evanđelista, 25. travnja, župna zajednica slavi svoga nebeskog zaštitnika.',
-      'Svečana sveta misa je u 19:00 sati. Pjeva župni zbor, a nakon mise pozivamo sve župljane na druženje ispred crkve.',
-      'Devetnica u pripravi za blagdan počinje devet dana ranije, svakodnevno pola sata prije večernje mise.',
+      'Na blagdan sv. Marka Evanđelista, 25. travnja 2025., naša je župa proslavila svoga nebeskog zaštitnika i trideset godina postojanja. Slavlje je započelo procesijom ulicama Neslanovca u kojoj je nošen novi kip sv. Marka.',
+      'Svečanu svetu misu predvodio je splitsko-makarski nadbiskup Zdenko Križić. Suslavili su župnik don Roko Celent, don Ante Delić i nadbiskupov tajnik don Renato Pudar, a liturgijsko pjevanje predvodio je župni VIS Sveti Marko.',
+      'U homiliji je nadbiskup govorio o susretu uskrsloga Isusa s učenicima: Krista prepoznajemo po ljubavi, a pravi učenik ne postoji bez poniznosti i služenja. Poruku sv. Marka sažeo je u poziv da upoznamo Isusa onakvoga kakvim ga prikazuje Evanđelje i da po tome živimo.',
+      'Nakon homilije nadbiskup je blagoslovio novi kip sv. Marka. Don Roko zahvalio je svima koji su pripremili slavlje i pomogli da župa dobije kip, a nadbiskup je čestitao obljetnicu i potaknuo obitelji da i dalje dovode djecu na misu.',
+      'Budući da se blagdan poklapa s Danom gradskoga kotara Neslanovac, druženje se nastavilo agapeom ispred crkve.',
+      'Izvor: IKA. Fotografije: Danijela Musulin.',
     ),
+    gallery: [
+      { image: images.homilija2025 },
+      { image: images.misa2025 },
+      { image: images.freske2025 },
+    ],
     author: 'Župni ured',
     _status: 'published',
   },
   {
-    title: 'Ljetni raspored svetih misa',
-    slug: 'ljetni-raspored-svetih-misa',
-    publishedAt: new Date('2026-06-15T09:00:00.000Z').toISOString(),
-    category: categoryIds['Obavijesti'],
+    title: '25. obljetnica župe sv. Marka',
+    slug: '25-obljetnica-zupe-sv-marka',
+    publishedAt: new Date('2019-12-22T11:00:00.000Z').toISOString(),
+    category: categoryIds['Slavlja'],
     featured: false,
+    coverImage: images.misa2019,
     excerpt:
-      'Kroz srpanj i kolovoz nedjeljne mise ostaju u 9:00, 11:00 i 20:00, a radnim danom misa je u 19:00.',
+      'Na četvrtu nedjelju došašća 2019. župa je proslavila 25 godina postojanja euharistijskim slavljem koje je predvodio nadbiskup Marin Barišić.',
     content: richText(
-      'Tijekom ljetnih mjeseci nedjeljni raspored ostaje nepromijenjen: svete mise su u 9:00, 11:00 i u 20:00 sati.',
-      'Radnim danom sveta misa je u 19:00 sati, a prilika za ispovijed pola sata prije mise.',
-      'Radno vrijeme župnog ureda kroz srpanj i kolovoz je radnim danom od 9:00 do 11:00.',
+      'Na četvrtu nedjelju došašća, 22. prosinca 2019., župa sv. Marka proslavila je 25. obljetnicu postojanja. Svečano euharistijsko slavlje predvodio je splitsko-makarski nadbiskup i metropolit Marin Barišić.',
+      'Suslavili su tadašnji župnik don Šimun Doljanin, don Roko Celent i don Renato Mrčela, a za oltarom je služio đakon Nikola Šakić, nadbiskupov tajnik. Pjevao je župni zbor.',
+      'Župa je osnovana u došašću 1994. i prve je godine živjela u montažnoj crkvi koju je darovao Caritas iz Venecije. Mise se u novoj crkvi slave od 2003., a crkva je posvećena 2005. godine.',
+      'U homiliji je nadbiskup, polazeći od lika sv. Josipa, pozvao očeve da budu kršćani koji brinu za svoju djecu i obitelj. Tijekom mise krstio je četvrto dijete jedne župne obitelji, kojoj je nadbiskupija uručila i dar namijenjen obiteljima s četvero i više djece.',
+      'Župa se za obljetnicu pripremila trodnevnicom koju su predvodili don Alojzije Bavčević, don Ivan Matković i don Carlos Taborda.',
+      'Izvor: IKA. Fotografije: Slavko Blažić.',
+    ),
+    gallery: [
+      { image: images.freske2019 },
+      { image: images.oltar2019 },
+      { image: images.krstenje2019 },
+    ],
+    author: 'Župni ured',
+    _status: 'published',
+  },
+  {
+    title: 'Posveta župne crkve sv. Marka',
+    slug: 'posveta-zupne-crkve-sv-marka',
+    publishedAt: new Date('2005-01-09T11:00:00.000Z').toISOString(),
+    category: categoryIds['Slavlja'],
+    featured: false,
+    coverImage: images.freske2019,
+    excerpt:
+      'Na blagdan Krštenja Gospodinova 2005. nadbiskup Marin Barišić posvetio je novu župnu crkvu sv. Marka na Neslanovcu.',
+    content: richText(
+      'Na blagdan Krštenja Gospodinova, 9. siječnja 2005., splitsko-makarski nadbiskup Marin Barišić posvetio je župnu crkvu sv. Marka Evanđelista na Neslanovcu. Suslavilo je petnaest svećenika, među njima župnik don Šimun Doljanin, generalni vikar Ivan Ćubelić i pastoralni vikar Drago Šimundža. Vjernici su ispunili crkvu i njezino predvorje.',
+      'Umjetnički projekt crkve djelo je Francisca Argüella, idejni nacrt izradio je arhitekt Maurizio Bergamo, a glavni i izvedbeni projekt arhitekt Damir Rako. Betonske radove izveo je „Konstruktor”, a glavninu završnih radova „Intergradnja” i tvrtka Stanka Galića. Dio posla odradili su sami župljani.',
+      'Crkva je uređena prema smjernicama Drugoga vatikanskog sabora: oltar je u središtu, a prostor je raspoređen tako da svi vjernici mogu aktivno sudjelovati u slavlju. Svetohranište je u pokrajnjoj kapelici namijenjenoj klanjanju i molitvi.',
+      'Mise se u novoj crkvi slave od prve nedjelje došašća 2003., a do tada se župa okupljala u montažnoj crkvi.',
+      'Izvor: IKA i Splitsko-makarska nadbiskupija. Fotografija (2019.): Slavko Blažić.',
     ),
     author: 'Župni ured',
     _status: 'published',
